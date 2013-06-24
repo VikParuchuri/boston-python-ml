@@ -41,20 +41,25 @@
     <!-- SLIDES -->
       <slide class="" id="slide-1" style="background:;">
   <hgroup>
-    <h2>What is edX?</h2>
+    
   </hgroup>
   <article>
-    <ul>
+    <pre><code>## Error: there is no package called &#39;ggplot2&#39;
+</code></pre>
+
+<h2>What is edX?</h2>
+
+<ul>
 <li>edX (edx.org) is an educational non-profit created by founding partners Harvard and MIT in May of 2012.<br></li>
 <li>Several other universities have since joined the effort.</li>
 <li>Two major components:
 
 <ul>
 <li>edX platform learning management system (LMS)</li>
-<li>edX Studio content management system (CMS)</li>
+<li>edX studio content management system (CMS)</li>
 <li>Together, enable authoring and delivery of courses at extremely large scale.</li>
 </ul></li>
-<li>Have hosted 30 courses in subject areas from physics to justice, with an equal number upcoming.</li>
+<li>Have hosted 30+ courses in subject areas from physics to justice, with a larger number upcoming.</li>
 <li>Recenly passed the 1 million student mark.</li>
 </ul>
 
@@ -130,11 +135,75 @@
 
       <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>AI Assessment</h2>
+    <h2>How it looks</h2>
   </hgroup>
   <article>
     <ul>
-<li></li>
+<li><img src="assets/img/open_ended_response.png" alt="open response"></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>What is AI assessment, anyways?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>AI assessment is the edX term for a more generic process: machine-learning based text classification and scoring.</li>
+<li>We can start with any &quot;training set&quot; of text and associated scores.
+
+<ul>
+<li>ie Reddit posts and scores, essays and scores, books and the names of the authors who wrote them.</li>
+</ul></li>
+<li>The goal is to &quot;train&quot; a model that can map future input text to a score/category without being told what it is (prediction)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Training set example</h2>
+  </hgroup>
+  <article>
+    <p>Let&#39;s say that I wanted to give a survey after the talks today and ask the following question:</p>
+
+<p>Why do you want to learn about machine learning?</p>
+
+<p>The responses might look like this:</p>
+
+<pre><code>## 1 I like solving interesting problems.
+## 2 What is machine learning?
+## 3 I&#39;m not sure.
+</code></pre>
+
+<p>Let&#39;s say that the survey also asks people to rate the talks on a scale of 0 to 2.</p>
+
+<p>We would now have text and associated scores:</p>
+
+<p><img src="figure/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>First steps</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Computers can&#39;t directly understand text like humans can.
+
+<ul>
+<li>Humans automatically break down sentences into units of meaning.</li>
+</ul></li>
+<li>In this case, we have to explicitly show the computer how to do this.</li>
+<li>Process is called tokenization.</li>
 </ul>
 
   </article>

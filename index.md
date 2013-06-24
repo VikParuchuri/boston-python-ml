@@ -10,15 +10,21 @@ widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
+
+```
+## Error: there is no package called 'ggplot2'
+```
+
+
 ## What is edX?
 
 * edX (edx.org) is an educational non-profit created by founding partners Harvard and MIT in May of 2012.  
 * Several other universities have since joined the effort.
 * Two major components:
   * edX platform learning management system (LMS)
-  * edX Studio content management system (CMS)
+  * edX studio content management system (CMS)
   * Together, enable authoring and delivery of courses at extremely large scale.
-* Have hosted 30 courses in subject areas from physics to justice, with an equal number upcoming.
+* Have hosted 30+ courses in subject areas from physics to justice, with a larger number upcoming.
 * Recenly passed the 1 million student mark.
 
 --- .class #id 
@@ -58,9 +64,55 @@ mode        : selfcontained # {standalone, draft}
 
 --- .class #id
 
-## AI Assessment
+## How it looks
 
-* 
+* ![open response](assets/img/open_ended_response.png)
+
+--- .class #id
+
+## What is AI assessment, anyways?
+
+* AI assessment is the edX term for a more generic process: machine-learning based text classification and scoring.
+* We can start with any "training set" of text and associated scores.
+  * ie Reddit posts and scores, essays and scores, books and the names of the authors who wrote them.
+* The goal is to "train" a model that can map future input text to a score/category without being told what it is (prediction)
+
+--- .class #id
+
+## Training set example
+
+Let's say that I wanted to give a survey after the talks today and ask the following question:
+
+Why do you want to learn about machine learning?
+
+The responses might look like this:
+
+
+```
+## 1 I like solving interesting problems.
+## 2 What is machine learning?
+## 3 I'm not sure.
+```
+
+
+Let's say that the survey also asks people to rate the talks on a scale of 0 to 2.
+
+We would now have text and associated scores:
+
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+
+
+--- .class #id
+
+## First steps
+
+* Computers can't directly understand text like humans can.
+  * Humans automatically break down sentences into units of meaning.
+* In this case, we have to explicitly show the computer how to do this.
+* Process is called tokenization.
+
+
+
 
 
 
