@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Text scoring and classification using edX EASE and Discern</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Text scoring and classification using edX EASE and Discern">
+  <meta name="author" content="Vik Paruchuri">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <hgroup class="auto-fadein">
+        <h1>Text scoring and classification using edX EASE and Discern</h1>
+        <h2></h2>
+        <p>Vik Paruchuri<br/></p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is edX?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>edX (edx.org) is an educational non-profit created by founding partners Harvard and MIT in May of 2012.<br></li>
+<li>Several other universities have since joined the effort.</li>
+<li>Two major components:
+
+<ul>
+<li>edX platform learning management system (LMS)</li>
+<li>edX Studio content management system (CMS)</li>
+<li>Together, enable authoring and delivery of courses at extremely large scale.</li>
+</ul></li>
+<li>Have hosted 30 courses in subject areas from physics to justice, with an equal number upcoming.</li>
+<li>Recenly passed the 1 million student mark.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Assessments on the edX platform</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>When edX launched, assessments were restricted to &quot;closed-choice&quot; response.</li>
+<li><img src="assets/img/multiple_choice_problem.png" alt="multiple choice"></li>
+<li><img src="assets/img/string_response.png" alt="string response"></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>How do we support humanities courses?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Difficult to support humanities courses without allowing students to enter free-text responses.
+
+<ul>
+<li>Richer assessments allow for varied instructional and learning styles.</li>
+</ul></li>
+<li>Short answer responses also useful for STEM courses offered by edX.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Potential strategies</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Peer assessment (students grade each other)</li>
+<li>Self assessment (students grade themselves)</li>
+<li>Instructor assessment (instructor grades everyone)</li>
+<li>AI Assessment (computer algorithm is trained and then grades students)</li>
+<li>Scoring students based on participation and quality of discussions.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Overall Implementation</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Through edx-ora (<a href="https://github.com/edx/edx-ora">https://github.com/edx/edx-ora</a>), implemented a combination of peer assessment, self assessment, instructor assessment, and AI assessment.</li>
+<li>edx-ora is currently being used to grade student free-text responses on the edX platform.</li>
+<li>Currently in alpha, and development is ongoing.</li>
+<li>Although the focus of this talk is AI assessment, highly encourage looking at edX-ora if you are interested.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>AI Assessment</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>
