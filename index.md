@@ -13,6 +13,18 @@ mode        : selfcontained # {standalone, draft}
 
 
 
+## Before we start
+
+* Follow along at vikparuchuri.github.io/boston-python-ml
+* Get the source at github.com/vikparuchuri/boston-python-ml
+
+# Who am I?
+* Machine learning consultant at edX
+* vik.paruchuri@gmail.com
+* [LinkedIn](linkedin.com/in/vikparuchuri)
+
+--- .class #id 
+
 ## What is edX?
 
 * edX (edx.org) is an educational non-profit created by founding partners Harvard and MIT in May of 2012.  
@@ -181,7 +193,7 @@ New features with lowercasing and spell correction:
 * As we saw in the slide before, we want to generate as much new information as possible while preserving existing information.
 * This will have us generate multiple *feature sets*.
   * Recommend having one feature set with original input text.
-* Can measure orthoganality by taking vector distance or vector similarity between each document vector.
+* Can measure orthogonality by taking vector distance or vector similarity between each document vector.
   * Need to reformat document vectors to contain all terms.
 
 Cosine similarities:
@@ -292,11 +304,50 @@ Let's use this as our "test" text that we will predict a score for:
 
 ## Evaluating model accuracy
 
+
+
 * A very important question when creating a model and exploring various feature combinations is accuracy.
 * In order to measure accuracy, we use a principle called cross-validation.
-  * Split training data set into n parts randomly.
+  * Split training data set into n parts randomly (each part is a "fold", and we call it n-fold cross validation).
   * Iterate from 1 to n and predict the scores of parts[n] from all the data in parts[!n].
+* Let's keep it simple, and split into 2 parts non-randomly.
+  * We will make a model using only the first 2 training matrix rows, and then another model using the next 2.
+  * Each model will be used to predict the scores of the texts that did not go into the model.
+* Why do we do this?
+  * Measuring accuracy allow us to figure out optimal combinations of strategies.
+  * Cross validation gives us an unbiased accuracy estimate.
 
+--- .class #id
+
+## Evaluating model accuracy
+
+First fold:
+
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16.png) 
+
+
+Second fold:
+![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17.png) 
+
+
+Predictions:
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18.png) 
+
+
+* Predictions are not very accurate due to very limited data.
+
+--- .class #id
+
+## Quantify error
+
+* Quantify accuracy through one of several methods
+  * Kappa correlation
+  * Mean absolute error
+  * Root mean squared error
+  * All of them turn error into a single number
+* Important to set random seeds when doing most machine learning methods in order to make error meaningful from run to run.
+* Root mean squared error
+$RMSE=\\sqrt{\\frac{1}n\\sum\\limits&#95;{i=1}&#94;n(\\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$
 
 
 

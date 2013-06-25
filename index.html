@@ -43,6 +43,28 @@
     <!-- SLIDES -->
       <slide class="" id="slide-1" style="background:;">
   <hgroup>
+    <h2>Before we start</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Follow along at vikparuchuri.github.io/boston-python-ml</li>
+<li>Get the source at github.com/vikparuchuri/boston-python-ml</li>
+</ul>
+
+<h1>Who am I?</h1>
+
+<ul>
+<li>Machine learning consultant at edX</li>
+<li><a href="mailto:vik.paruchuri@gmail.com">vik.paruchuri@gmail.com</a></li>
+<li><a href="linkedin.com/in/vikparuchuri">LinkedIn</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
     <h2>What is edX?</h2>
   </hgroup>
   <article>
@@ -319,7 +341,7 @@
 <ul>
 <li>Recommend having one feature set with original input text.</li>
 </ul></li>
-<li>Can measure orthoganality by taking vector distance or vector similarity between each document vector.
+<li>Can measure orthogonality by taking vector distance or vector similarity between each document vector.
 
 <ul>
 <li>Need to reformat document vectors to contain all terms.</li>
@@ -496,9 +518,67 @@
 <li>In order to measure accuracy, we use a principle called cross-validation.
 
 <ul>
-<li>Split training data set into n parts randomly.</li>
+<li>Split training data set into n parts randomly (each part is a &quot;fold&quot;, and we call it n-fold cross validation).</li>
 <li>Iterate from 1 to n and predict the scores of parts[n] from all the data in parts[!n].</li>
 </ul></li>
+<li>Let&#39;s keep it simple, and split into 2 parts non-randomly.
+
+<ul>
+<li>We will make a model using only the first 2 training matrix rows, and then another model using the next 2.</li>
+<li>Each model will be used to predict the scores of the texts that did not go into the model.</li>
+</ul></li>
+<li>Why do we do this?
+
+<ul>
+<li>Measuring accuracy allow us to figure out optimal combinations of strategies.</li>
+<li>Cross validation gives us an unbiased accuracy estimate.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Evaluating model accuracy</h2>
+  </hgroup>
+  <article>
+    <p>First fold:</p>
+
+<p><img src="figure/unnamed-chunk-16.png" alt="plot of chunk unnamed-chunk-16"> </p>
+
+<p>Second fold:
+<img src="figure/unnamed-chunk-17.png" alt="plot of chunk unnamed-chunk-17"> </p>
+
+<p>Predictions:
+<img src="figure/unnamed-chunk-18.png" alt="plot of chunk unnamed-chunk-18"> </p>
+
+<ul>
+<li>Predictions are not very accurate due to very limited data.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Quantify error</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Quantify accuracy through one of several methods
+
+<ul>
+<li>Kappa correlation</li>
+<li>Mean absolute error</li>
+<li>Root mean squared error</li>
+<li>All of them turn error into a single number</li>
+</ul></li>
+<li>Important to set random seeds when doing most machine learning methods in order to make error meaningful from run to run.</li>
+<li>Root mean squared error
+$RMSE=\sqrt{\frac{1}n\sum\limits&#95;{i=1}&#94;n(\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$</li>
 </ul>
 
   </article>

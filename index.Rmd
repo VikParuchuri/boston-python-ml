@@ -49,6 +49,18 @@ train_length = length(training_scores)
 train_frame = data.frame(text=training_text, score=training_scores)
 ```
 
+## Before we start
+
+* Follow along at vikparuchuri.github.io/boston-python-ml
+* Get the source at github.com/vikparuchuri/boston-python-ml
+
+# Who am I?
+* Machine learning consultant at edX
+* vik.paruchuri@gmail.com
+* [LinkedIn](linkedin.com/in/vikparuchuri)
+
+--- .class #id 
+
 ## What is edX?
 
 * edX (edx.org) is an educational non-profit created by founding partners Harvard and MIT in May of 2012.  
@@ -128,7 +140,7 @@ Let's say that the survey also asks people to rate the talks on a scale of `r mi
 
 We would now have text and associated scores:
 
-```{r echo=FALSE, fig.width=5, fig.height=1}
+```{r echo=FALSE, fig.width=5, fig.height=2}
 grid.table(train_frame)
 ```
 
@@ -163,7 +175,7 @@ In this very simple case, we have just made each word a token (similar to *strin
 * We construct an *nxt* document-term matrix, where *n* is the number of documents, and *t* is the number of unique terms.
 * Each column represents a unique term, and each cell *i,j*  represents how many of term *j* are in document *i*.
 
-```{r echo=FALSE, fig.width=10, fig.height=1}
+```{r echo=FALSE, fig.width=10, fig.height=2}
 corpus = Corpus(VectorSource(training_text))
 train_mat = as.matrix(DocumentTermMatrix(corpus,control=list(tokenize=tokenizer,removePunctuation=TRUE,stopwords=FALSE,removeNumbers=FALSE, tolower=FALSE)))
 grid.table(train_mat)
@@ -220,7 +232,7 @@ grid.table(new_mat)
 * As we saw in the slide before, we want to generate as much new information as possible while preserving existing information.
 * This will have us generate multiple *feature sets*.
   * Recommend having one feature set with original input text.
-* Can measure orthoganality by taking vector distance or vector similarity between each document vector.
+* Can measure orthogonality by taking vector distance or vector similarity between each document vector.
   * Need to reformat document vectors to contain all terms.
 
 Cosine similarities:
@@ -273,7 +285,7 @@ if(mid_val==0)
 prob_one_mat=new_mat[training_scores>=mid_val,]
 prob_zero_mat = new_mat[training_scores<mid_val,]
 row_probs_zero= fisher.pval(colSums(prob_zero_mat),nrow(prob_zero_mat),colSums(prob_one_mat),nrow(prob_one_mat))
-grid.table(rbind(zero_occurence = colSums(prob_zero_mat), one_occurence = colSums(prob_one_mat), p_value = row_probs_zero))
+grid.table(rbind(low_occurence = colSums(prob_zero_mat), high_occurence = colSums(prob_one_mat), p_value = row_probs_zero))
 ```
 
 --- .class #id
@@ -344,6 +356,7 @@ grid.table(test_mat)
 
 * We can use our new features to predict a score for our test text.
 ```{r echo=FALSE}
+set.seed(1)
 #predict(linear_model,data.frame(test_mat))
 coefs = as.numeric(lapply(colnames(test_mat), function(x) {
   if(!is.na(coef(linear_model)[x])){
@@ -364,10 +377,62 @@ val = coef_sum + coef(linear_model)["(Intercept)"]
 
 ## Evaluating model accuracy
 
+```{r echo=FALSE}
+first_fold  = round(nrow(train_mat)/2)
+second_fold = nrow(train_mat) - first_fold
+```
 * A very important question when creating a model and exploring various feature combinations is accuracy.
 * In order to measure accuracy, we use a principle called cross-validation.
-  * Split training data set into n parts randomly.
+  * Split training data set into n parts randomly (each part is a "fold", and we call it n-fold cross validation).
   * Iterate from 1 to n and predict the scores of parts[n] from all the data in parts[!n].
+* Let's keep it simple, and split into 2 parts non-randomly.
+  * We will make a model using only the first `r first_fold` training matrix rows, and then another model using the next `r second_fold`.
+  * Each model will be used to predict the scores of the texts that did not go into the model.
+* Why do we do this?
+  * Measuring accuracy allow us to figure out optimal combinations of strategies.
+  * Cross validation gives us an unbiased accuracy estimate.
+
+--- .class #id
+
+## Evaluating model accuracy
+
+First fold:
+
+```{r echo=FALSE, fig.width=12, fig.height=1}
+grid.table(train_mat[1:first_fold,])
+```
+
+Second fold:
+```{r echo=FALSE, fig.width=12, fig.height=1}
+grid.table(train_mat[(first_fold+1):nrow(train_mat),])
+```
+
+Predictions:
+```{r echo=FALSE, fig.width=5, fig.height=2, warning=FALSE}
+cv_scores = rep(0,nrow(train_mat))
+model_one = lm(score~.,data.frame(first_fold,score=training_scores[1:first_fold]))
+cv_scores[(first_fold+1):nrow(train_mat)] = as.numeric(predict(model_one,data.frame(second_fold)))
+model_two = lm(score~.,data.frame(second_fold,score=training_scores[(first_fold+1):nrow(train_mat)]))
+cv_scores[1:first_fold] = as.numeric(predict(model_two,data.frame(first_fold)))
+grid.table(data.frame(actual_score=training_scores, predicted_score=cv_scores))
+```
+
+* Predictions are not very accurate due to very limited data.
+
+--- .class #id
+
+## Quantify error
+
+* Quantify accuracy through one of several methods
+  * Kappa correlation
+  * Mean absolute error
+  * Root mean squared error
+  * All of them turn error into a single number
+* Important to set random seeds when doing most machine learning methods in order to make error meaningful from run to run.
+* $RMSE=\\sqrt{\\frac{1}n\\sum\\limits&#95;{i=1}&#94;n(\\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$
+* Our RMSE is `r sqrt(mean((cv_scores-training_scores)^2))`
+* If we tried another method, and the RMSE improved, we would have a reasonable expectation that the method was better.
+
 
 
 
