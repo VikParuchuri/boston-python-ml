@@ -69,8 +69,7 @@
   </hgroup>
   <article>
     <ul>
-<li>edX (edx.org) is an educational non-profit created by founding partners Harvard and MIT in May of 2012.<br></li>
-<li>Several other universities have since joined the effort.</li>
+<li>edX (edx.org) is an educational non-profit created in May 2012.</li>
 <li>Two major components:
 
 <ul>
@@ -81,6 +80,7 @@
 <li>Have hosted 30+ courses in subject areas from physics to justice, with a larger number upcoming.</li>
 <li>Recenly passed the 1 million student mark.</li>
 <li>Platform and all software today <a href="github.com/edx">open source</a> and coded in Python.</li>
+<li>Currently hiring (edx.org/jobs)</li>
 </ul>
 
   </article>
@@ -108,65 +108,14 @@
   </hgroup>
   <article>
     <ul>
-<li>Difficult to support humanities courses without allowing students to enter free-text responses.
+<li>Need support for free-text responses.
 
 <ul>
 <li>Richer assessments allow for varied instructional and learning styles.</li>
 </ul></li>
-<li>Short answer responses also useful for STEM courses offered by edX.</li>
-<li>One way to do this is through AI Assessment</li>
+<li>Short answer responses also useful for STEM courses.</li>
+<li>One way to do this is through AI Assessment.</li>
 </ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>AI Assessment</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>In 2012, <a href="www.kaggle.com">Kaggle</a> ran a Hewlett Foundation sponsored competition to generate new ideas for automated scoring of student essays.</li>
-<li>Find it at <a href="http://www.kaggle.com/c/asap-aes">http://www.kaggle.com/c/asap-aes</a> .
-
-<ul>
-<li>In the competition, participants were given a dataset containing thousands of essays across several essay sets.</li>
-</ul></li>
-<li>156 teams participated, along with 9 vendors of existing automated assessment tools.</li>
-<li>You can find a paper on the vendor results <a href="http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf">here</a>.
-
-<ul>
-<li>Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.</li>
-</ul></li>
-<li>A second competition took place soon after for the scoring of short essays (<a href="http://www.kaggle.com/c/asap-sas">http://www.kaggle.com/c/asap-sas</a>)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>Public leaderboard performance</h2>
-  </hgroup>
-  <article>
-    <p><img src="assets/img/Automated_Essay_Scoring_Scores.png" height="500px" width="900px" class="center"/></p>
-
-<p>Taken from <a href="http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time">forum post</a> by Christopher Hefele.</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>Teams vs Vendors</h2>
-  </hgroup>
-  <article>
-    <p><img src="assets/img/teams_vs_vendors.png" height="500px" width="700px" class="center"/></p>
-
-<p>Taken from <a href="http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time">forum post</a> by Christopher Hefele.</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -183,7 +132,7 @@
 <ul>
 <li>ie Reddit posts and scores, essays and scores, books and the names of the authors who wrote them.</li>
 </ul></li>
-<li>The goal is to &quot;train&quot; a model that can map future input text to a score/category without being told what it is (prediction)</li>
+<li>We &quot;train&quot; a model that can map future input text to a score/category without being told what it is (prediction)</li>
 </ul>
 
   </article>
@@ -207,9 +156,7 @@
 ## 4 Machien lerning predicts eveyrthing.
 </code></pre>
 
-<p>Let&#39;s say that the survey also asks people to rate the talks on a scale of 0 to 2.</p>
-
-<p>We would now have text and associated scores:</p>
+<p>If I also asked people to rate the talks on a scale of 0 to 2, we would now have text and associated scores:</p>
 
 <p><img src="figure/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
 
@@ -228,9 +175,9 @@
 <ul>
 <li>Humans automatically break down sentences into units of meaning.</li>
 </ul></li>
-<li>In this case, we have to first explicitly show the computer how to do this, in a process called tokenization.</li>
+<li>Have to first explicitly show the computer how to do it (tokenization)</li>
 <li>After tokenization, we can convert the tokens into a matrix (bag of words model).</li>
-<li>Once we have a matrix, we can a machine learning algorithm to train a model and predict scores.</li>
+<li>With the matrix, we can use a machine learning algorithm to train a model and predict scores.</li>
 </ul>
 
   </article>
@@ -247,9 +194,9 @@
 <pre><code>## [1] &quot;I&quot;           &quot;like&quot;        &quot;solving&quot;     &quot;interesting&quot; &quot;problems&quot;
 </code></pre>
 
-<p>In this very simple case, we have just made each word a token (similar to <em>string.split(&#39; &#39;)</em>).</p>
+<p>Each word is now a token (similar to <em>string.split(&#39; &#39;)</em>).</p>
 
-<p>Tokenization where n-grams are extracted is also useful.  N-grams are sequences of words.  So a 2-gram would be two words together.  This allows the bag of words model to have some information about word ordering.</p>
+<p>Can also extract sequences of words (n-grams).  This allows the bag of words model to have some information about word ordering.</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -262,11 +209,11 @@
   <article>
     <ul>
 <li>The bag of words model is a common way to represent documents in matrix form.</li>
-<li>We construct an <em>nxt</em> document-term matrix, where <em>n</em> is the number of documents, and <em>t</em> is the number of unique terms.</li>
+<li>Construct an <em>nxt</em> document-term matrix, where <em>n</em> is the number of documents, and <em>t</em> is the number of unique terms.</li>
 <li>Each column represents a unique term, and each cell <em>i,j</em>  represents how many of term <em>j</em> are in document <em>i</em>.
 
 <ul>
-<li>We are using a simple term frequency bag of words.  Other techniques, such as term frequency - inverse document frequency (tf-idf) would have something other than just counts in the cells.</li>
+<li>We are using term frequency.  Could also use tf-idf.</li>
 </ul></li>
 </ul>
 
@@ -282,16 +229,15 @@
   </hgroup>
   <article>
     <ul>
-<li>We want to minimize the distance between two similar feature vectors.
+<li>The below text fragments are substantially similar:
 
 <ul>
-<li>For example, the below text fragments are substantially similar:</li>
 <li>Bill wanted to grow up and be a Doctor.</li>
 <li>bill wnted to gorw up and a be a doctor!</li>
-<li>However, the simple tokenization we outlined above will not catch this.</li>
 </ul></li>
+<li>However, the simple tokenization we outlined above will not catch this.</li>
 <li>Spell correction using aspell or <a href="http://norvig.com/spell-correct.html">Peter Norvig&#39;s method</a>.</li>
-<li>We minimize distance because we want the same response to get the same score from our algorithm.</li>
+<li>Minimize distance because we want the same response to get the same score from our algorithm.</li>
 </ul>
 
   </article>
@@ -326,35 +272,11 @@
 
       <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>Orthogonality</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>Generate multiple <em>feature sets</em>. All of the feature sets will eventually be collapsed into one matrix and fed into the algorithm.</li>
-<li>Can measure orthogonality by taking vector distance or vector similarity between each document vector.</li>
-</ul>
-
-<p>Cosine similarities:</p>
-
-<pre><code>## [1] 1.0000 0.6667 1.0000 0.2500
-</code></pre>
-
-<p>Mean similarity:</p>
-
-<pre><code>## [1] 0.7292
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
     <h2>Meta-features</h2>
   </hgroup>
   <article>
     <ul>
-<li>We may also wish to extract higher-level features, such as number of spelling errors, number of grammar errors, etc.</li>
+<li>Number of spelling errors, number of grammar errors, etc.</li>
 <li>Preserve information.
 
 <ul>
@@ -381,14 +303,14 @@
 <li>Two simple ways
 
 <ul>
-<li>Create a machine learning model and measure error</li>
+<li>Create a machine learning model and measure error.</li>
 <li>Do a chi-squared test or a fisher test of significance.</li>
 </ul></li>
-<li>The tests essentially say &quot;Is feature x significantly different between low and high scoring texts&quot;?</li>
-<li>P-value -- the lower the p-value, the more significant the difference is.  Generally, a .05 or a .01 is a good threshold for significance.</li>
+<li>&quot;Is feature x significantly different between low and high scoring texts&quot;?</li>
+<li>The lower the p-value, the more significant the difference is.</li>
 </ul>
 
-<p><img src="figure/unnamed-chunk-10.png" alt="plot of chunk unnamed-chunk-10"> </p>
+<p><img src="figure/unnamed-chunk-8.png" alt="plot of chunk unnamed-chunk-8"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -400,7 +322,6 @@
   </hgroup>
   <article>
     <ul>
-<li>Now that we have generated our bag of words features and our meta-features, and figured out which ones are good, we can move onto machine learning.</li>
 <li>Two broad categories of algorithms: classification and regression (not linear regression!)
 
 <ul>
@@ -431,7 +352,7 @@
 
 <ul>
 <li>Each column in the matrix (feature) has a coefficient.</li>
-<li>Once we have the coefficients, we can predict how future text would score.</li>
+<li>Predict scores using coefficients.</li>
 </ul></li>
 </ul>
 
@@ -440,8 +361,6 @@
 <pre><code>##              (Intercept) eveyrthing interesting learning
 ## coefficients           1         -1           1       -1
 </code></pre>
-
-<p>Words that are not shown do not have a coefficient (ie they did not have any useful information for scoring).</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -453,12 +372,7 @@
   </hgroup>
   <article>
     <ul>
-<li>Now that we have our coefficients, and our intercept term, we can construct our equation and predict scores for new text.</li>
-<li>Any new text has to go through the exact same process that we passed our training text through.
-
-<ul>
-<li>In this case, text will go through the bag of words model.  We will skip additional processing to keep it simple.</li>
-</ul></li>
+<li>Any new text that we want to predict the score for has to go through the exact same process that we passed our training text through.</li>
 </ul>
 
 <p>Let&#39;s use this as our &quot;test&quot; text that we will predict a score for:</p>
@@ -466,7 +380,7 @@
 <pre><code>## 1 I want to learn to solve interesting problems.
 </code></pre>
 
-<p><img src="figure/unnamed-chunk-13.png" alt="plot of chunk unnamed-chunk-13"> </p>
+<p><img src="figure/unnamed-chunk-11.png" alt="plot of chunk unnamed-chunk-11"> </p>
 
 <ul>
 <li>We can use our new features to predict a score for our test text.</li>
@@ -484,24 +398,23 @@
   </hgroup>
   <article>
     <ul>
-<li>A very important question when creating a model and exploring various feature combinations is accuracy.</li>
 <li>In order to measure accuracy, we use a principle called cross-validation.
 
 <ul>
 <li>Split training data set into n parts randomly (each part is a &quot;fold&quot;, and we call it n-fold cross validation).</li>
 <li>Iterate from 1 to n and predict the scores of parts[n] from all the data in parts[!n].</li>
 </ul></li>
-<li>Let&#39;s keep it simple, and split into 2 parts non-randomly.
+<li>We will split into 2 parts non-randomly.
 
 <ul>
-<li>We will make a model using only the first 2 training matrix rows, and then another model using the next 2.</li>
+<li>Make a model using only the first 2 training matrix rows, and then another model using the next 2.</li>
 <li>Each model will be used to predict the scores of the texts that did not go into the model.</li>
 </ul></li>
 <li>Why do we do this?
 
 <ul>
 <li>Measuring accuracy allow us to figure out optimal combinations of strategies.</li>
-<li>Cross validation gives us an unbiased accuracy estimate.</li>
+<li>Unbiased accuracy estimate.</li>
 </ul></li>
 </ul>
 
@@ -516,13 +429,13 @@
   <article>
     <p>First fold:</p>
 
-<p><img src="figure/unnamed-chunk-16.png" alt="plot of chunk unnamed-chunk-16"> </p>
+<p><img src="figure/unnamed-chunk-14.png" alt="plot of chunk unnamed-chunk-14"> </p>
 
 <p>Second fold:
-<img src="figure/unnamed-chunk-17.png" alt="plot of chunk unnamed-chunk-17"> </p>
+<img src="figure/unnamed-chunk-15.png" alt="plot of chunk unnamed-chunk-15"> </p>
 
 <p>Predictions:
-<img src="figure/unnamed-chunk-18.png" alt="plot of chunk unnamed-chunk-18"> </p>
+<img src="figure/unnamed-chunk-16.png" alt="plot of chunk unnamed-chunk-16"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -534,17 +447,11 @@
   </hgroup>
   <article>
     <ul>
-<li>Quantify accuracy through one of several methods
-
-<ul>
 <li>Kappa correlation</li>
 <li>Mean absolute error</li>
 <li>Root mean squared error</li>
-<li>All of them turn error into a single number</li>
-</ul></li>
 <li>$RMSE=\sqrt{\frac{1}n\sum\limits&#95;{i=1}&#94;n(\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$</li>
 <li>Our RMSE is 0.9354</li>
-<li>If we tried another method, and the RMSE improved, we would have a reasonable expectation that the method was better.</li>
 </ul>
 
   </article>
@@ -558,14 +465,14 @@
   <article>
     <ul>
 <li>EASE exposes high level functions for creating models and grading students.</li>
-<li>It has a full test suite (&gt;80% coverage) to easily evaluate changes.</li>
+<li>Full test suite (&gt;80% coverage) to easily evaluate changes.</li>
 <li>Under continuous development, and easy to contribute to.
 
 <ul>
 <li>Available through pip, but recommend cloning the master branch from github and following the install instructions.</li>
 </ul></li>
 <li>Feel free to fork and pull request.</li>
-<li>Full documentation is at ease.readthedocs.org/en/latest/ .</li>
+<li>See code.edx.org for information.</li>
 </ul>
 
   </article>
@@ -593,7 +500,7 @@
 <li>Reports the &quot;confidence level&quot; it has in a certain score that it predicts</li>
 <li>Allows for sharing of problems</li>
 </ul></li>
-<li>* Full documentation is at discern.readthedocs.org/en/latest/ .</li>
+<li>See code.edx.org for information.</li>
 </ul>
 
   </article>
@@ -607,14 +514,33 @@
   <article>
     <ul>
 <li>Hosted version of discern at discern.edx.org .</li>
-<li>We can test one of the examples, found in the &quot;examples&quot; directory of the discern repo.
-
-<ul>
-<li>The example uses the discern API to allow for essay to be written, submitted, and graded.</li>
-</ul></li>
 <li>Currently in alpha.  Development is still ongoing.</li>
 <li>Questions should be asked on the <a href="https://groups.google.com/forum/#!forum/edx-discern">mailing list for discern</a>.</li>
 </ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Basic connection</h2>
+  </hgroup>
+  <article>
+    <pre><code>import requests
+#This queries the top level schema and gets all of the available models, and their associated endpoints.
+response = requests.get(&quot;http://discern.edx.org/essay_site/api/v1/?format=json&quot;)
+
+#Decode the json serialized response into a python object.
+rj = response.json()
+
+#Loop through the json object and print out the data.
+for model in rj:
+    print(&quot;Model: {0} Endpoint: {1} Schema: {2}&quot;.format(model, rj[model][&#39;list_endpoint&#39;], rj[model][&#39;schema&#39;]))
+
+#Now, let&#39;s try to get the schema for a single model.
+response = requests.get(&quot;http://discern.edx.org/&quot; + rj[&#39;essay&#39;][&#39;schema&#39;] + &quot;?format=json&quot;)
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -627,8 +553,12 @@
   <article>
     <ul>
 <li>Find example application <a href="https://github.com/edx/discern/tree/master/examples/problem_grader">here</a>.</li>
-<li>You can deploy the example with cloudformation/ansible <a href="https://github.com/VikParuchuri/grader-deployment">here</a>.  Find an example on how to deploy something similar <a href="http://vikparuchuri.com/blog/creating-a-wordpress-single-or-multisite-install-using-cloudformation-and-ansible/">here</a>.</li>
-<li>There is a hosted version at grader.vikparuchuri.com that may or may not be running (and may or may not work 100%).</li>
+<li>Deploy the example with cloudformation/ansible <a href="https://github.com/VikParuchuri/grader-deployment">here</a>.<br>
+
+<ul>
+<li>Example on how to deploy something similar <a href="http://vikparuchuri.com/blog/creating-a-wordpress-single-or-multisite-install-using-cloudformation-and-ansible/">here</a>.</li>
+</ul></li>
+<li>Hosted version at grader.vikparuchuri.com that may or may not be running.</li>
 </ul>
 
   </article>

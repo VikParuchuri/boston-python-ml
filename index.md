@@ -27,8 +27,7 @@ mode        : selfcontained # {standalone, draft}
 
 ## What is edX?
 
-* edX (edx.org) is an educational non-profit created by founding partners Harvard and MIT in May of 2012.  
-* Several other universities have since joined the effort.
+* edX (edx.org) is an educational non-profit created in May 2012.
 * Two major components:
   * edX platform learning management system (LMS)
   * edX studio content management system (CMS)
@@ -36,6 +35,7 @@ mode        : selfcontained # {standalone, draft}
 * Have hosted 30+ courses in subject areas from physics to justice, with a larger number upcoming.
 * Recenly passed the 1 million student mark.
 * Platform and all software today [open source](github.com/edx) and coded in Python.
+* Currently hiring (edx.org/jobs)
 
 --- .class #id 
 
@@ -49,38 +49,10 @@ mode        : selfcontained # {standalone, draft}
 
 ## How do we support humanities courses?
 
-* Difficult to support humanities courses without allowing students to enter free-text responses.
+* Need support for free-text responses.
   * Richer assessments allow for varied instructional and learning styles.
-* Short answer responses also useful for STEM courses offered by edX.
-* One way to do this is through AI Assessment
-
---- .class #id
-
-## AI Assessment
-
-* In 2012, [Kaggle](www.kaggle.com) ran a Hewlett Foundation sponsored competition to generate new ideas for automated scoring of student essays.
-* Find it at http://www.kaggle.com/c/asap-aes .
-  * In the competition, participants were given a dataset containing thousands of essays across several essay sets.
-* 156 teams participated, along with 9 vendors of existing automated assessment tools.
-* You can find a paper on the vendor results [here](http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf).
-  * Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.
-* A second competition took place soon after for the scoring of short essays (http://www.kaggle.com/c/asap-sas)
-
---- .class #id
-
-## Public leaderboard performance
-
-<img src="assets/img/Automated_Essay_Scoring_Scores.png" height="500px" width="900px" class="center"/>
-
-Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time) by Christopher Hefele.
-
---- .class #id
-
-## Teams vs Vendors
-
-<img src="assets/img/teams_vs_vendors.png" height="500px" width="700px" class="center"/>
-
-Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time) by Christopher Hefele.
+* Short answer responses also useful for STEM courses.
+* One way to do this is through AI Assessment.
 
 --- .class #id
 
@@ -88,7 +60,7 @@ Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-le
 
 * We can start with any "training set" of text and associated scores.
   * ie Reddit posts and scores, essays and scores, books and the names of the authors who wrote them.
-* The goal is to "train" a model that can map future input text to a score/category without being told what it is (prediction)
+* We "train" a model that can map future input text to a score/category without being told what it is (prediction)
 
 --- .class #id
 
@@ -109,9 +81,7 @@ The responses might look like this:
 ```
 
 
-Let's say that the survey also asks people to rate the talks on a scale of 0 to 2.
-
-We would now have text and associated scores:
+If I also asked people to rate the talks on a scale of 0 to 2, we would now have text and associated scores:
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
@@ -122,9 +92,9 @@ We would now have text and associated scores:
 
 * Computers can't directly understand text like humans can.
   * Humans automatically break down sentences into units of meaning.
-* In this case, we have to first explicitly show the computer how to do this, in a process called tokenization.
+* Have to first explicitly show the computer how to do it (tokenization)
 * After tokenization, we can convert the tokens into a matrix (bag of words model).
-* Once we have a matrix, we can a machine learning algorithm to train a model and predict scores.
+* With the matrix, we can use a machine learning algorithm to train a model and predict scores.
 
 --- .class #id
 
@@ -138,18 +108,18 @@ Let's tokenize the first survey response:
 ```
 
 
-In this very simple case, we have just made each word a token (similar to *string.split(' ')*).
+Each word is now a token (similar to *string.split(' ')*).
 
-Tokenization where n-grams are extracted is also useful.  N-grams are sequences of words.  So a 2-gram would be two words together.  This allows the bag of words model to have some information about word ordering.
+Can also extract sequences of words (n-grams).  This allows the bag of words model to have some information about word ordering.
 
 --- .class #id
 
 ## Bag of words model
 
 * The bag of words model is a common way to represent documents in matrix form.
-* We construct an *nxt* document-term matrix, where *n* is the number of documents, and *t* is the number of unique terms.
+* Construct an *nxt* document-term matrix, where *n* is the number of documents, and *t* is the number of unique terms.
 * Each column represents a unique term, and each cell *i,j*  represents how many of term *j* are in document *i*.
-  * We are using a simple term frequency bag of words.  Other techniques, such as term frequency - inverse document frequency (tf-idf) would have something other than just counts in the cells.
+  * We are using term frequency.  Could also use tf-idf.
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
@@ -158,13 +128,12 @@ Tokenization where n-grams are extracted is also useful.  N-grams are sequences 
 
 ## Minimizing distances between vectors
 
-* We want to minimize the distance between two similar feature vectors.
-  * For example, the below text fragments are substantially similar:
-    * Bill wanted to grow up and be a Doctor.
-    * bill wnted to gorw up and a be a doctor!
-  * However, the simple tokenization we outlined above will not catch this.
+* The below text fragments are substantially similar:
+  * Bill wanted to grow up and be a Doctor.
+  * bill wnted to gorw up and a be a doctor!
+* However, the simple tokenization we outlined above will not catch this.
 * Spell correction using aspell or [Peter Norvig's method](http://norvig.com/spell-correct.html).
-* We minimize distance because we want the same response to get the same score from our algorithm.
+* Minimize distance because we want the same response to get the same score from our algorithm.
 
 --- .class #id
 
@@ -185,30 +154,9 @@ New features with lowercasing and spell correction:
 
 --- .class #id
 
-## Orthogonality
-
-* Generate multiple *feature sets*. All of the feature sets will eventually be collapsed into one matrix and fed into the algorithm.
-* Can measure orthogonality by taking vector distance or vector similarity between each document vector.
-
-Cosine similarities:
-
-```
-## [1] 1.0000 0.6667 1.0000 0.2500
-```
-
-
-Mean similarity:
-
-```
-## [1] 0.7292
-```
-
-
---- .class #id
-
 ## Meta-features
 
-* We may also wish to extract higher-level features, such as number of spelling errors, number of grammar errors, etc.
+* Number of spelling errors, number of grammar errors, etc.
 * Preserve information.
   * If we are lowercasing everything, a "number of spelling errors" feature will capture some of the original information.
 * Condense and extract information.
@@ -220,19 +168,18 @@ Mean similarity:
 ## Which features are the right features?
 
 * Two simple ways
-  * Create a machine learning model and measure error
+  * Create a machine learning model and measure error.
   * Do a chi-squared test or a fisher test of significance.
-* The tests essentially say "Is feature x significantly different between low and high scoring texts"?
-* P-value -- the lower the p-value, the more significant the difference is.  Generally, a .05 or a .01 is a good threshold for significance.
+* "Is feature x significantly different between low and high scoring texts"?
+* The lower the p-value, the more significant the difference is.
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8.png) 
 
 
 --- .class #id
 
 ## Finally, some machine learning!
 
-* Now that we have generated our bag of words features and our meta-features, and figured out which ones are good, we can move onto machine learning.
 * Two broad categories of algorithms: classification and regression (not linear regression!)
   * Most regression assumes that you are on a continuous scale.
   * Classification is discrete.
@@ -248,7 +195,7 @@ Mean similarity:
 * A simple linear equation is $y=m*x+b$ , where y is the target value(score), m is a coefficient, and b is a constant.
 * In linear regression, we would do something like $y=m&#95;{1}*x&#95;{1}+m&#95;{2}*x&#95;{2}+\dots+m&#95;{n}*x&#95;{n}+b$.
   * Each column in the matrix (feature) has a coefficient.
-  * Once we have the coefficients, we can predict how future text would score.
+  * Predict scores using coefficients.
 
 Coefficients:
 
@@ -258,15 +205,11 @@ Coefficients:
 ```
 
 
-Words that are not shown do not have a coefficient (ie they did not have any useful information for scoring).
-
 --- .class #id
 
 ## Predicting scores
 
-* Now that we have our coefficients, and our intercept term, we can construct our equation and predict scores for new text.
-* Any new text has to go through the exact same process that we passed our training text through.
-  * In this case, text will go through the bag of words model.  We will skip additional processing to keep it simple.
+* Any new text that we want to predict the score for has to go through the exact same process that we passed our training text through.
 
 Let's use this as our "test" text that we will predict a score for:
 
@@ -275,7 +218,7 @@ Let's use this as our "test" text that we will predict a score for:
 ```
 
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13.png) 
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11.png) 
 
 
 * We can use our new features to predict a score for our test text.
@@ -290,16 +233,15 @@ Our prediction is 2. In this case, the intercept was 1 and the presence of the w
 
 
 
-* A very important question when creating a model and exploring various feature combinations is accuracy.
 * In order to measure accuracy, we use a principle called cross-validation.
   * Split training data set into n parts randomly (each part is a "fold", and we call it n-fold cross validation).
   * Iterate from 1 to n and predict the scores of parts[n] from all the data in parts[!n].
-* Let's keep it simple, and split into 2 parts non-randomly.
-  * We will make a model using only the first 2 training matrix rows, and then another model using the next 2.
+* We will split into 2 parts non-randomly.
+  * Make a model using only the first 2 training matrix rows, and then another model using the next 2.
   * Each model will be used to predict the scores of the texts that did not go into the model.
 * Why do we do this?
   * Measuring accuracy allow us to figure out optimal combinations of strategies.
-  * Cross validation gives us an unbiased accuracy estimate.
+  * Unbiased accuracy estimate.
 
 --- .class #id
 
@@ -307,40 +249,37 @@ Our prediction is 2. In this case, the intercept was 1 and the presence of the w
 
 First fold:
 
-![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16.png) 
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14.png) 
 
 
 Second fold:
-![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17.png) 
+![plot of chunk unnamed-chunk-15](figure/unnamed-chunk-15.png) 
 
 
 Predictions:
-![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18.png) 
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16.png) 
 
 
 --- .class #id
 
 ## Quantify error
 
-* Quantify accuracy through one of several methods
-  * Kappa correlation
-  * Mean absolute error
-  * Root mean squared error
-  * All of them turn error into a single number
+* Kappa correlation
+* Mean absolute error
+* Root mean squared error
 * $RMSE=\\sqrt{\\frac{1}n\\sum\\limits&#95;{i=1}&#94;n(\\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$
 * Our RMSE is 0.9354
-* If we tried another method, and the RMSE improved, we would have a reasonable expectation that the method was better.
 
 --- .class #id
 
 ## EASE
 
 * EASE exposes high level functions for creating models and grading students.
-* It has a full test suite (>80% coverage) to easily evaluate changes.
+* Full test suite (>80% coverage) to easily evaluate changes.
 * Under continuous development, and easy to contribute to.
   * Available through pip, but recommend cloning the master branch from github and following the install instructions.
 * Feel free to fork and pull request.
-* Full documentation is at ease.readthedocs.org/en/latest/ .
+* See code.edx.org for information.
 
 --- .class #id
 
@@ -355,25 +294,44 @@ Predictions:
   * Can store information about peer, self, and instructor assessment
   * Reports the "confidence level" it has in a certain score that it predicts
   * Allows for sharing of problems
-* * Full documentation is at discern.readthedocs.org/en/latest/ .
+* See code.edx.org for information.
 
 --- .class #id
 
 ## Hosted Discern
 
 * Hosted version of discern at discern.edx.org .
-* We can test one of the examples, found in the "examples" directory of the discern repo.
-  * The example uses the discern API to allow for essay to be written, submitted, and graded.
 * Currently in alpha.  Development is still ongoing.
 * Questions should be asked on the [mailing list for discern](https://groups.google.com/forum/#!forum/edx-discern).
+
+--- .class #id
+
+## Basic connection
+
+```
+import requests
+#This queries the top level schema and gets all of the available models, and their associated endpoints.
+response = requests.get("http://discern.edx.org/essay_site/api/v1/?format=json")
+
+#Decode the json serialized response into a python object.
+rj = response.json()
+
+#Loop through the json object and print out the data.
+for model in rj:
+    print("Model: {0} Endpoint: {1} Schema: {2}".format(model, rj[model]['list_endpoint'], rj[model]['schema']))
+
+#Now, let's try to get the schema for a single model.
+response = requests.get("http://discern.edx.org/" + rj['essay']['schema'] + "?format=json")
+```
 
 --- .class #id
 
 ## Using the example application with discern
 
 * Find example application [here](https://github.com/edx/discern/tree/master/examples/problem_grader).
-* You can deploy the example with cloudformation/ansible [here](https://github.com/VikParuchuri/grader-deployment).  Find an example on how to deploy something similar [here](http://vikparuchuri.com/blog/creating-a-wordpress-single-or-multisite-install-using-cloudformation-and-ansible/).
-* There is a hosted version at grader.vikparuchuri.com that may or may not be running (and may or may not work 100%).
+* Deploy the example with cloudformation/ansible [here](https://github.com/VikParuchuri/grader-deployment).  
+  * Example on how to deploy something similar [here](http://vikparuchuri.com/blog/creating-a-wordpress-single-or-multisite-install-using-cloudformation-and-ansible/).
+* Hosted version at grader.vikparuchuri.com that may or may not be running.
 
 --- .class #id
 

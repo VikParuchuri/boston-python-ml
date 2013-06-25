@@ -6,4 +6,9 @@ strong {
   font-weight: bold;
 }
 
+slide:not(.segue)  li,p{
+ font-family: "Open Sans Condensed";
+ font-weight: 700;
+ color: #403d3b;
+}
 
