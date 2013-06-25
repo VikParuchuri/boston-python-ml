@@ -6,7 +6,7 @@ job         :
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
-widgets     : []            # {mathjax, quiz, bootstrap}
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
@@ -219,6 +219,83 @@ Mean similarity:
 ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
 
 
+--- .class #id
+
+## Finally, some machine learning!
+
+* Now that we have generated our bag of words features and our meta-features, and figured out which ones are good, we can move onto machine learning.
+* The goal is to "train" a model that can predict future scores and categories.
+* Two broad categories of algorithms: classification and regression (not linear regression!)
+  * Most regression assumes that you are on a continuous scale.
+  * Classification is discrete.
+  * Classification works best if you have less than 5 "score points" (we have 3).
+  * Should try both, and measure error.
+* We also have a lot of choice regarding the algorithm to use.
+  * Random forest
+  * Gradient boosted trees
+  * Linear regression
+
+--- .class #id
+
+## Linear regression
+
+* A simple linear equation is $y=m*x+b$ , where y is the target value(score), m is a coefficient, and b is a constant.
+* In linear regression, we would do something like $y=m&#95;{1}*x&#95;{1}+m&#95;{2}*x&#95;{2}+\dots+m&#95;{n}*x&#95;{n}+b$.
+  * Each column in the matrix (feature) has a coefficient.
+  * When we train the model, we calculate the coefficients.
+  * Once we have the coefficients, we can predict how future text would score.
+
+Coefficients:
+
+```
+##              (Intercept) eveyrthing interesting learning
+## coefficients           1         -1           1       -1
+```
+
+
+Words that are not shown do not have a coefficient (ie they did not have any useful information for scoring).
+
+--- .class #id
+
+## Predicting scores
+
+* Now that we have our coefficients, and our intercept term, we can construct our equation and predict scores for new text.
+* Any new text has to go through the exact same process that we passed our training text through.
+  * In this case, text will go through the bag of words model.  We will skip additional processing to keep it simple.
+
+Let's use this as our "test" text that we will predict a score for:
+
+```
+## 1 I want to learn to solve interesting problems.
+```
+
+
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13.png) 
+
+
+* Note that we have used the exact same features as in the training matrix. 
+  * Without this, our model will not work.
+
+--- .class #id
+
+## Predicting scores
+
+* We can use our new features to predict a score for our test text.
+
+
+
+* Our prediction is 2
+* We derive this by multiplying each column in the matrix by its associated coefficient, then adding those together and adding the intercept.
+* In this case, the intercept was 1 and the presence of the word *interesting* added another 1.
+
+--- .class #id
+
+## Evaluating model accuracy
+
+* A very important question when creating a model and exploring various feature combinations is accuracy.
+* In order to measure accuracy, we use a principle called cross-validation.
+  * Split training data set into n parts randomly.
+  * Iterate from 1 to n and predict the scores of parts[n] from all the data in parts[!n].
 
 
 

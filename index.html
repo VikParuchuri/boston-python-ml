@@ -380,6 +380,131 @@
   <!-- Presenter Notes -->
 </slide>
 
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Finally, some machine learning!</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Now that we have generated our bag of words features and our meta-features, and figured out which ones are good, we can move onto machine learning.</li>
+<li>The goal is to &quot;train&quot; a model that can predict future scores and categories.</li>
+<li>Two broad categories of algorithms: classification and regression (not linear regression!)
+
+<ul>
+<li>Most regression assumes that you are on a continuous scale.</li>
+<li>Classification is discrete.</li>
+<li>Classification works best if you have less than 5 &quot;score points&quot; (we have 3).</li>
+<li>Should try both, and measure error.</li>
+</ul></li>
+<li>We also have a lot of choice regarding the algorithm to use.
+
+<ul>
+<li>Random forest</li>
+<li>Gradient boosted trees</li>
+<li>Linear regression</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Linear regression</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>A simple linear equation is $y=m*x+b$ , where y is the target value(score), m is a coefficient, and b is a constant.</li>
+<li>In linear regression, we would do something like $y=m&#95;{1}*x&#95;{1}+m&#95;{2}*x&#95;{2}+\dots+m&#95;{n}*x&#95;{n}+b$.
+
+<ul>
+<li>Each column in the matrix (feature) has a coefficient.</li>
+<li>When we train the model, we calculate the coefficients.</li>
+<li>Once we have the coefficients, we can predict how future text would score.</li>
+</ul></li>
+</ul>
+
+<p>Coefficients:</p>
+
+<pre><code>##              (Intercept) eveyrthing interesting learning
+## coefficients           1         -1           1       -1
+</code></pre>
+
+<p>Words that are not shown do not have a coefficient (ie they did not have any useful information for scoring).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Predicting scores</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Now that we have our coefficients, and our intercept term, we can construct our equation and predict scores for new text.</li>
+<li>Any new text has to go through the exact same process that we passed our training text through.
+
+<ul>
+<li>In this case, text will go through the bag of words model.  We will skip additional processing to keep it simple.</li>
+</ul></li>
+</ul>
+
+<p>Let&#39;s use this as our &quot;test&quot; text that we will predict a score for:</p>
+
+<pre><code>## 1 I want to learn to solve interesting problems.
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-13.png" alt="plot of chunk unnamed-chunk-13"> </p>
+
+<ul>
+<li>Note that we have used the exact same features as in the training matrix. 
+
+<ul>
+<li>Without this, our model will not work.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Predicting scores</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>We can use our new features to predict a score for our test text.</p></li>
+<li><p>Our prediction is 2</p></li>
+<li><p>We derive this by multiplying each column in the matrix by its associated coefficient, then adding those together and adding the intercept.</p></li>
+<li><p>In this case, the intercept was 1 and the presence of the word <em>interesting</em> added another 1.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Evaluating model accuracy</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>A very important question when creating a model and exploring various feature combinations is accuracy.</li>
+<li>In order to measure accuracy, we use a principle called cross-validation.
+
+<ul>
+<li>Split training data set into n parts randomly.</li>
+<li>Iterate from 1 to n and predict the scores of parts[n] from all the data in parts[!n].</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
     <slide class="backdrop"></slide>
   </slides>
 
@@ -394,6 +519,20 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
 <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
 <!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
 <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
