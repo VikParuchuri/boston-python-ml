@@ -18,7 +18,9 @@
     src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "assets/css/ribbons.css">
+    <link rel="stylesheet" href = "assets/css/assets.css">
+<link rel="stylesheet" href = "assets/css/assets.css~">
+<link rel="stylesheet" href = "assets/css/ribbons.css">
 
 </head>
 <body style="opacity: 0">
@@ -41,15 +43,10 @@
     <!-- SLIDES -->
       <slide class="" id="slide-1" style="background:;">
   <hgroup>
-    
+    <h2>What is edX?</h2>
   </hgroup>
   <article>
-    <pre><code>## Error: there is no package called &#39;ggplot2&#39;
-</code></pre>
-
-<h2>What is edX?</h2>
-
-<ul>
+    <ul>
 <li>edX (edx.org) is an educational non-profit created by founding partners Harvard and MIT in May of 2012.<br></li>
 <li>Several other universities have since joined the effort.</li>
 <li>Two major components:
@@ -123,9 +120,9 @@
   </hgroup>
   <article>
     <ul>
-<li>Through edx-ora (<a href="https://github.com/edx/edx-ora">https://github.com/edx/edx-ora</a>), implemented a combination of peer assessment, self assessment, instructor assessment, and AI assessment.</li>
+<li>Through edx-ora (<a href="https://github.com/edx/edx-ora">https://github.com/edx/edx-ora</a>), implement a combination of peer assessment, self assessment, instructor assessment, and AI assessment.</li>
 <li>edx-ora is currently being used to grade student free-text responses on the edX platform.</li>
-<li>Currently in alpha, and development is ongoing.</li>
+<li>In alpha, and development is ongoing.</li>
 <li>Although the focus of this talk is AI assessment, highly encourage looking at edX-ora if you are interested.</li>
 </ul>
 
@@ -179,6 +176,7 @@
 <pre><code>## 1 I like solving interesting problems.
 ## 2 What is machine learning?
 ## 3 I&#39;m not sure.
+## 4 Machien lerning predicts eveyrthing.
 </code></pre>
 
 <p>Let&#39;s say that the survey also asks people to rate the talks on a scale of 0 to 2.</p>
@@ -202,9 +200,141 @@
 <ul>
 <li>Humans automatically break down sentences into units of meaning.</li>
 </ul></li>
-<li>In this case, we have to explicitly show the computer how to do this.</li>
-<li>Process is called tokenization.</li>
+<li>In this case, we have to first explicitly show the computer how to do this, in a process called tokenization.</li>
+<li>After tokenization, we can convert the tokens into a matrix (bag of words model).</li>
+<li>Once we have a matrix, we can use machine learning to train a model and predict scores.</li>
 </ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Tokenization</h2>
+  </hgroup>
+  <article>
+    <p>Let&#39;s tokenize the first survey response:</p>
+
+<pre><code>## [1] &quot;I&quot;           &quot;like&quot;        &quot;solving&quot;     &quot;interesting&quot; &quot;problems&quot;
+</code></pre>
+
+<p>In this very simple case, we have just made each word a token (similar to <em>string.split(&#39; &#39;)</em>).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Bag of words model</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The bag of words model is a common way to represent documents in matrix form.</li>
+<li>We construct an <em>nxt</em> document-term matrix, where <em>n</em> is the number of documents, and <em>t</em> is the number of unique terms.</li>
+<li>Each column represents a unique term, and each cell <em>i,j</em>  represents how many of term <em>j</em> are in document <em>i</em>.</li>
+</ul>
+
+<p><img src="figure/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Bag of words overview</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Ordering of words within a document is not taken into account in the basic bag of words model.</li>
+<li>Once we have our document-term matrix, we can use machine learning techniques.</li>
+<li>I have outlined a very simple framework, but it can easily be built on and extended.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Minimizing distances between vectors</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>We want to minimize the distance between two similar feature vectors.
+
+<ul>
+<li>For example, the below text fragments are substantially similar:</li>
+<li>Bill wanted to grow up and be a Doctor.</li>
+<li>bill wnted to gorw up and a be a doctor!</li>
+<li>However, the simple tokenization we outlined above will not catch this.</li>
+</ul></li>
+<li>Spell correction using aspell or <a href="http://norvig.com/spell-correct.html">Peter Norvig&#39;s method</a>.</li>
+<li>Lowercase input strings.</li>
+<li>We minimize distance because we want the same response to get the same score.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Preserving information</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>It is important to preserve as much of the input information as we can.</li>
+<li>When we start to spell correct or lowercase strings, we lose information.
+
+<ul>
+<li>We may be lowercasing the proper name Bill to the word bill.</li>
+<li>If we are scoring an essay, and spelling is an important criteria, we don&#39;t want to lose that.</li>
+</ul></li>
+</ul>
+
+<p>Old features:</p>
+
+<p><img src="figure/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"> </p>
+
+<p>New features with lowercasing and spell correction:</p>
+
+<p><img src="figure/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Orthogonality</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>As we saw in the slide before, we want to generate as much new information as possible while preserving existing information.</li>
+<li>This will have us generate multiple <em>feature sets</em>.
+
+<ul>
+<li>Recommend having one feature set with original input text.</li>
+</ul></li>
+<li>Can measure orthoganality by taking vector distance or vector similarity between each document vector.
+
+<ul>
+<li>Need to reformat document vectors to contain all terms.</li>
+</ul></li>
+</ul>
+
+<p>Cosine similarities:</p>
+
+<pre><code>## [1] 1.0000 0.6667 1.0000 0.2500
+</code></pre>
+
+<p>Mean similarity:</p>
+
+<pre><code>## [1] 0.7292
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->

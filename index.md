@@ -11,9 +11,6 @@ mode        : selfcontained # {standalone, draft}
 ---
 
 
-```
-## Error: there is no package called 'ggplot2'
-```
 
 
 ## What is edX?
@@ -57,9 +54,9 @@ mode        : selfcontained # {standalone, draft}
 
 ## Overall Implementation
 
-* Through edx-ora (https://github.com/edx/edx-ora), implemented a combination of peer assessment, self assessment, instructor assessment, and AI assessment.
+* Through edx-ora (https://github.com/edx/edx-ora), implement a combination of peer assessment, self assessment, instructor assessment, and AI assessment.
 * edx-ora is currently being used to grade student free-text responses on the edX platform.
-* Currently in alpha, and development is ongoing.
+* In alpha, and development is ongoing.
 * Although the focus of this talk is AI assessment, highly encourage looking at edX-ora if you are interested.
 
 --- .class #id
@@ -92,6 +89,7 @@ The responses might look like this:
 ## 1 I like solving interesting problems.
 ## 2 What is machine learning?
 ## 3 I'm not sure.
+## 4 Machien lerning predicts eveyrthing.
 ```
 
 
@@ -108,8 +106,100 @@ We would now have text and associated scores:
 
 * Computers can't directly understand text like humans can.
   * Humans automatically break down sentences into units of meaning.
-* In this case, we have to explicitly show the computer how to do this.
-* Process is called tokenization.
+* In this case, we have to first explicitly show the computer how to do this, in a process called tokenization.
+* After tokenization, we can convert the tokens into a matrix (bag of words model).
+* Once we have a matrix, we can use machine learning to train a model and predict scores.
+
+--- .class #id
+
+## Tokenization
+
+Let's tokenize the first survey response:
+
+
+```
+## [1] "I"           "like"        "solving"     "interesting" "problems"
+```
+
+
+In this very simple case, we have just made each word a token (similar to *string.split(' ')*).
+
+--- .class #id
+
+## Bag of words model
+
+* The bag of words model is a common way to represent documents in matrix form.
+* We construct an *nxt* document-term matrix, where *n* is the number of documents, and *t* is the number of unique terms.
+* Each column represents a unique term, and each cell *i,j*  represents how many of term *j* are in document *i*.
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+
+
+--- .class #id
+
+## Bag of words overview
+
+* Ordering of words within a document is not taken into account in the basic bag of words model.
+* Once we have our document-term matrix, we can use machine learning techniques.
+* I have outlined a very simple framework, but it can easily be built on and extended.
+
+--- .class #id
+
+## Minimizing distances between vectors
+
+* We want to minimize the distance between two similar feature vectors.
+  * For example, the below text fragments are substantially similar:
+    * Bill wanted to grow up and be a Doctor.
+    * bill wnted to gorw up and a be a doctor!
+  * However, the simple tokenization we outlined above will not catch this.
+* Spell correction using aspell or [Peter Norvig's method](http://norvig.com/spell-correct.html).
+* Lowercase input strings.
+* We minimize distance because we want the same response to get the same score.
+
+--- .class #id
+
+## Preserving information
+
+* It is important to preserve as much of the input information as we can.
+* When we start to spell correct or lowercase strings, we lose information.
+  * We may be lowercasing the proper name Bill to the word bill.
+  * If we are scoring an essay, and spelling is an important criteria, we don't want to lose that.
+
+Old features:
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
+
+New features with lowercasing and spell correction:
+
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7.png) 
+
+
+--- .class #id
+
+## Orthogonality
+
+* As we saw in the slide before, we want to generate as much new information as possible while preserving existing information.
+* This will have us generate multiple *feature sets*.
+  * Recommend having one feature set with original input text.
+* Can measure orthoganality by taking vector distance or vector similarity between each document vector.
+  * Need to reformat document vectors to contain all terms.
+
+Cosine similarities:
+
+```
+## [1] 1.0000 0.6667 1.0000 0.2500
+```
+
+
+Mean similarity:
+
+```
+## [1] 0.7292
+```
+
+
+
+
 
 
 
