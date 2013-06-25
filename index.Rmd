@@ -452,6 +452,44 @@ grid.table(data.frame(actual_score=training_scores, predicted_score=cv_scores))
 
 --- .class #id
 
+## Using the example application with discern
+
+* Find example application [here](https://github.com/edx/discern/tree/master/examples/problem_grader).
+* You can deploy the example with cloudformation/ansible [here](https://github.com/VikParuchuri/grader-deployment).  Find an example on how to deploy something similar [here](http://vikparuchuri.com/blog/creating-a-wordpress-single-or-multisite-install-using-cloudformation-and-ansible/).
+* There is a hosted version at grader.vikparuchuri.com that may or may not be running (and may or may not work 100%).
+
+--- .class #id
+
+## Add course
+
+![add_course](assets/img/add_course.png)
+
+--- .class #id
+
+## Show problems
+
+![show_problems](assets/img/show_problems.png)
+
+--- .class #id
+
+## Add essay
+
+![add_essay](assets/img/add_essay.png)
+
+--- .class #id
+
+## Grade essay
+
+![grade_essay](assets/img/grade_essay.png)
+
+--- .class #id
+
+## View grades
+
+![view_grades](assets/img/view_grades.png)
+
+--- .class #id
+
 ## Questions?
 
 
