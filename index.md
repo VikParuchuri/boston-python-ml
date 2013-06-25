@@ -120,7 +120,20 @@ We would now have text and associated scores:
   * Humans automatically break down sentences into units of meaning.
 * In this case, we have to first explicitly show the computer how to do this, in a process called tokenization.
 * After tokenization, we can convert the tokens into a matrix (bag of words model).
-* Once we have a matrix, we can use machine learning to train a model and predict scores.
+* Once we have a matrix, we can a machine learning algorithm to train a model and predict scores.
+
+--- .class #id
+
+## What is the algorithm doing?
+
+* The algorithm is going to be taking in a lot of numerical values, along with the scores that are associated with these values.
+* We will extract the numerical values from the text
+  * For example, *number of times the word plane appears in a piece of text* is a feature.
+* The values (features) are derived from the input text, and aggreggated on a per-text basis into feature vectors.
+* Multiple feature vectors are generally placed together into a feature matrix, where each row represents a piece of text.
+* The algorithm will discover which of these features is relevant, and which are not.
+* The relevance is determined by whether or not the features differentiate a high scoring essay from a low scoring one.
+* So, we want to feed it features that are specific (they measure as few things as possible) and relevant.
 
 --- .class #id
 
@@ -136,6 +149,8 @@ Let's tokenize the first survey response:
 
 In this very simple case, we have just made each word a token (similar to *string.split(' ')*).
 
+Tokenization where n-grams are extracted is also useful.  N-grams are sequences of words.  So a 2-gram would be two words together.  This allows the bag of words model to have some information about word ordering.
+
 --- .class #id
 
 ## Bag of words model
@@ -143,6 +158,7 @@ In this very simple case, we have just made each word a token (similar to *strin
 * The bag of words model is a common way to represent documents in matrix form.
 * We construct an *nxt* document-term matrix, where *n* is the number of documents, and *t* is the number of unique terms.
 * Each column represents a unique term, and each cell *i,j*  represents how many of term *j* are in document *i*.
+  * We are using a simple term frequency bag of words.  Other techniques, such as term frequency - inverse document frequency (tf-idf) would have something other than just counts in the cells.
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
@@ -154,6 +170,8 @@ In this very simple case, we have just made each word a token (similar to *strin
 * Ordering of words within a document is not taken into account in the basic bag of words model.
 * Once we have our document-term matrix, we can use machine learning techniques.
 * I have outlined a very simple framework, but it can easily be built on and extended.
+* The bag of words is a foundational block for a lot of more advanced techniques.
+* What we are doing is extracting potentially relevant information in a manner the computer can utilize (ie numbers)
 
 --- .class #id
 
@@ -166,7 +184,7 @@ In this very simple case, we have just made each word a token (similar to *strin
   * However, the simple tokenization we outlined above will not catch this.
 * Spell correction using aspell or [Peter Norvig's method](http://norvig.com/spell-correct.html).
 * Lowercase input strings.
-* We minimize distance because we want the same response to get the same score.
+* We minimize distance because we want the same response to get the same score from our algorithm.
 
 --- .class #id
 
@@ -191,7 +209,7 @@ New features with lowercasing and spell correction:
 ## Orthogonality
 
 * As we saw in the slide before, we want to generate as much new information as possible while preserving existing information.
-* This will have us generate multiple *feature sets*.
+* This will have us generate multiple *feature sets*. All of the feature sets will eventually be collapsed into one matrix and fed into the algorithm.
   * Recommend having one feature set with original input text.
 * Can measure orthogonality by taking vector distance or vector similarity between each document vector.
   * Need to reformat document vectors to contain all terms.
@@ -217,7 +235,21 @@ Mean similarity:
 * We may also wish to extract higher-level features, such as number of spelling errors, number of grammar errors, etc.
 * Can add meta-features to the bag of words matrix.
 * Meta-features preserve information.
-  * Can also extract and condense information.
+  * If we are lowercasing everything, a "number of spelling errors" feature will capture some of the original information.
+* Can also extract and condense information.
+  * Several columns with capitalized words will contain a lot of word-specific information (including whether or not the word is capitalized), but making a feature "number of capitalizations" will condense all of that information.
+  * If one of the criteria for whether or not an essay is good is whether or not the student has a synonym for "sun", a meta-feature could extract all possible synonyms and condense them into a count.
+
+--- .class #id
+
+## Relevance of Information
+
+* Just like with a human, too much information will swamp an algorithm will irrelevant inputs.
+* Similarly, information that is too broad will not help much.
+  * For example, say a latent trait that gives a student a 2/2 on an essay vs a 0/2 is the presence of a synonym for the word "sun" in the response
+  * Broad information would be several columns in our matrix that contain synonyms for the word "sun"
+  * Specific information would be a feature that counts all of the synonyms up
+* Our goal is to give the computer as much relevant information as possible.  If an item is relevant, more specific is better, but the less specific it is, the more potentially relevant it will be.
 
 --- .class #id
 
@@ -391,10 +423,9 @@ Predictions:
 * Find it at http://www.kaggle.com/c/asap-aes .
   * In the competition, participants were given a dataset containing thousands of essays across several essay sets.
   * Participants then were asked to develop models using the data.
-  * Final evaluation was done on a set of data that participants had never seen.
-  * Evaluation metrics was Quadratic Weighted Kappa
+  * Final evaluation was done on a set of data that participants had never seen using quadratic weighted kappa.
 * 156 teams participated, along with 9 vendors of existing automated assessment tools.
-* You can find a paper on the vendor results at http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf .
+* You can find a paper on the vendor results [here](http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf).
   * Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.
 * A second competition took place soon after for the scoring of short essays (http://www.kaggle.com/c/asap-sas)
 

@@ -222,7 +222,30 @@
 </ul></li>
 <li>In this case, we have to first explicitly show the computer how to do this, in a process called tokenization.</li>
 <li>After tokenization, we can convert the tokens into a matrix (bag of words model).</li>
-<li>Once we have a matrix, we can use machine learning to train a model and predict scores.</li>
+<li>Once we have a matrix, we can a machine learning algorithm to train a model and predict scores.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>What is the algorithm doing?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The algorithm is going to be taking in a lot of numerical values, along with the scores that are associated with these values.</li>
+<li>We will extract the numerical values from the text
+
+<ul>
+<li>For example, <em>number of times the word plane appears in a piece of text</em> is a feature.</li>
+</ul></li>
+<li>The values (features) are derived from the input text, and aggreggated on a per-text basis into feature vectors.</li>
+<li>Multiple feature vectors are generally placed together into a feature matrix, where each row represents a piece of text.</li>
+<li>The algorithm will discover which of these features is relevant, and which are not.</li>
+<li>The relevance is determined by whether or not the features differentiate a high scoring essay from a low scoring one.</li>
+<li>So, we want to feed it features that are specific (they measure as few things as possible) and relevant.</li>
 </ul>
 
   </article>
@@ -241,6 +264,8 @@
 
 <p>In this very simple case, we have just made each word a token (similar to <em>string.split(&#39; &#39;)</em>).</p>
 
+<p>Tokenization where n-grams are extracted is also useful.  N-grams are sequences of words.  So a 2-gram would be two words together.  This allows the bag of words model to have some information about word ordering.</p>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -253,7 +278,11 @@
     <ul>
 <li>The bag of words model is a common way to represent documents in matrix form.</li>
 <li>We construct an <em>nxt</em> document-term matrix, where <em>n</em> is the number of documents, and <em>t</em> is the number of unique terms.</li>
-<li>Each column represents a unique term, and each cell <em>i,j</em>  represents how many of term <em>j</em> are in document <em>i</em>.</li>
+<li>Each column represents a unique term, and each cell <em>i,j</em>  represents how many of term <em>j</em> are in document <em>i</em>.
+
+<ul>
+<li>We are using a simple term frequency bag of words.  Other techniques, such as term frequency - inverse document frequency (tf-idf) would have something other than just counts in the cells.</li>
+</ul></li>
 </ul>
 
 <p><img src="figure/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
@@ -271,6 +300,8 @@
 <li>Ordering of words within a document is not taken into account in the basic bag of words model.</li>
 <li>Once we have our document-term matrix, we can use machine learning techniques.</li>
 <li>I have outlined a very simple framework, but it can easily be built on and extended.</li>
+<li>The bag of words is a foundational block for a lot of more advanced techniques.</li>
+<li>What we are doing is extracting potentially relevant information in a manner the computer can utilize (ie numbers)</li>
 </ul>
 
   </article>
@@ -293,7 +324,7 @@
 </ul></li>
 <li>Spell correction using aspell or <a href="http://norvig.com/spell-correct.html">Peter Norvig&#39;s method</a>.</li>
 <li>Lowercase input strings.</li>
-<li>We minimize distance because we want the same response to get the same score.</li>
+<li>We minimize distance because we want the same response to get the same score from our algorithm.</li>
 </ul>
 
   </article>
@@ -334,7 +365,7 @@
   <article>
     <ul>
 <li>As we saw in the slide before, we want to generate as much new information as possible while preserving existing information.</li>
-<li>This will have us generate multiple <em>feature sets</em>.
+<li>This will have us generate multiple <em>feature sets</em>. All of the feature sets will eventually be collapsed into one matrix and fed into the algorithm.
 
 <ul>
 <li>Recommend having one feature set with original input text.</li>
@@ -371,8 +402,35 @@
 <li>Meta-features preserve information.
 
 <ul>
-<li>Can also extract and condense information.</li>
+<li>If we are lowercasing everything, a &quot;number of spelling errors&quot; feature will capture some of the original information.</li>
 </ul></li>
+<li>Can also extract and condense information.
+
+<ul>
+<li>Several columns with capitalized words will contain a lot of word-specific information (including whether or not the word is capitalized), but making a feature &quot;number of capitalizations&quot; will condense all of that information.</li>
+<li>If one of the criteria for whether or not an essay is good is whether or not the student has a synonym for &quot;sun&quot;, a meta-feature could extract all possible synonyms and condense them into a count.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Relevance of Information</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Just like with a human, too much information will swamp an algorithm will irrelevant inputs.</li>
+<li>Similarly, information that is too broad will not help much.
+
+<ul>
+<li>For example, say a latent trait that gives a student a 2/2 on an essay vs a 0/2 is the presence of a synonym for the word &quot;sun&quot; in the response</li>
+<li>Broad information would be several columns in our matrix that contain synonyms for the word &quot;sun&quot;</li>
+<li>Specific information would be a feature that counts all of the synonyms up</li>
+</ul></li>
+<li>Our goal is to give the computer as much relevant information as possible.  If an item is relevant, more specific is better, but the less specific it is, the more potentially relevant it will be.</li>
 </ul>
 
   </article>
@@ -656,11 +714,10 @@
 <ul>
 <li>In the competition, participants were given a dataset containing thousands of essays across several essay sets.</li>
 <li>Participants then were asked to develop models using the data.</li>
-<li>Final evaluation was done on a set of data that participants had never seen.</li>
-<li>Evaluation metrics was Quadratic Weighted Kappa</li>
+<li>Final evaluation was done on a set of data that participants had never seen using quadratic weighted kappa.</li>
 </ul></li>
 <li>156 teams participated, along with 9 vendors of existing automated assessment tools.</li>
-<li>You can find a paper on the vendor results at <a href="http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf">http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf</a> .
+<li>You can find a paper on the vendor results <a href="http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf">here</a>.
 
 <ul>
 <li>Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.</li>

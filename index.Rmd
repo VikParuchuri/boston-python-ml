@@ -248,9 +248,8 @@ grid.table(new_mat)
 ## Orthogonality
 
 * As we saw in the slide before, we want to generate as much new information as possible while preserving existing information.
-* This will have us generate multiple *feature sets*.
+* This will have us generate multiple *feature sets*. All of the feature sets will eventually be collapsed into one matrix and fed into the algorithm.
   * Recommend having one feature set with original input text.
-  * All of the feature sets will eventually be collapsed into one matrix and fed into the algorithm.
 * Can measure orthogonality by taking vector distance or vector similarity between each document vector.
   * Need to reformat document vectors to contain all terms.
 
@@ -290,7 +289,7 @@ mean(sim)
 * Can also extract and condense information.
   * Several columns with capitalized words will contain a lot of word-specific information (including whether or not the word is capitalized), but making a feature "number of capitalizations" will condense all of that information.
   * If one of the criteria for whether or not an essay is good is whether or not the student has a synonym for "sun", a meta-feature could extract all possible synonyms and condense them into a count.
-  
+
 --- .class #id
 
 ## Relevance of Information
@@ -507,10 +506,9 @@ grid.table(data.frame(actual_score=training_scores, predicted_score=cv_scores))
 * Find it at http://www.kaggle.com/c/asap-aes .
   * In the competition, participants were given a dataset containing thousands of essays across several essay sets.
   * Participants then were asked to develop models using the data.
-  * Final evaluation was done on a set of data that participants had never seen.
-  * Evaluation metrics was Quadratic Weighted Kappa
+  * Final evaluation was done on a set of data that participants had never seen using quadratic weighted kappa.
 * 156 teams participated, along with 9 vendors of existing automated assessment tools.
-* You can find a paper on the vendor results at http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf .
+* You can find a paper on the vendor results [here](http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf).
   * Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.
 * A second competition took place soon after for the scoring of short essays (http://www.kaggle.com/c/asap-sas)
 
@@ -568,8 +566,15 @@ Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-le
   * Can store information about peer, self, and instructor assessment
   * Reports the "confidence level" it has in a certain score that it predicts
   * Allows for sharing of problems
-* Open source, so can be easily contributed to
+
+--- .class #id
+
+## Contributing to Discern
+
+* Open source, so can be easily contributed to.
 * Excellent usage guide contributed by John Kern can be found at http://discern.readthedocs.org/en/latest/ .
+* The contribution guidelines are on github.
+* Very excited to see what can be done with it.
   
 --- .class #id
 
