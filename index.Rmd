@@ -15,6 +15,7 @@ library(gridExtra)
 library(RWeka)
 library(tm)
 library(lsa)
+library(corpora)
 
 aspell_path<-"/usr/bin/aspell"
 
@@ -246,6 +247,33 @@ Mean similarity:
 mean(sim)
 ```
 
+--- .class #id
+
+## Meta-features
+
+* We may also wish to extract higher-level features, such as number of spelling errors, number of grammar errors, etc.
+* Can add meta-features to the bag of words matrix.
+* Meta-features preserve information.
+  * Can also extract and condense information.
+
+--- .class #id
+
+## Which features are the right features?
+
+* Two simple ways
+  * Create a machine learning model and measure error
+  * Do a chi-squared test or a fisher test of significance.
+* The tests essentially say "Is feature x significantly different between low and high scoring texts"?
+
+```{r echo=FALSE, fig.height=1, fig.width=12}
+mid_val = round(median(training_scores))
+if(mid_val==0)
+  mid_val=1
+prob_one_mat=new_mat[training_scores>=mid_val,]
+prob_zero_mat = new_mat[training_scores<mid_val,]
+row_probs_zero= fisher.pval(colSums(prob_zero_mat),nrow(prob_zero_mat),colSums(prob_one_mat),nrow(prob_one_mat))
+grid.table(rbind(zero_occurence = colSums(prob_zero_mat), one_occurence = colSums(prob_one_mat), p_value = row_probs_zero))
+```
 
 
 

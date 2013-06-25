@@ -198,6 +198,26 @@ Mean similarity:
 ```
 
 
+--- .class #id
+
+## Meta-features
+
+* We may also wish to extract higher-level features, such as number of spelling errors, number of grammar errors, etc.
+* Can add meta-features to the bag of words matrix.
+* Meta-features preserve information.
+  * Can also extract and condense information.
+
+--- .class #id
+
+## Which features are the right features?
+
+* Two simple ways
+  * Create a machine learning model and measure error
+  * Do a chi-squared test or a fisher test of significance.
+* The tests essentially say "Is feature x significantly different between low and high scoring texts"?
+
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
+
 
 
 
