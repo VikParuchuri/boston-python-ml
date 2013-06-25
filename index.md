@@ -75,7 +75,7 @@ mode        : selfcontained # {standalone, draft}
 
 ## How it looks
 
-* ![open response](assets/img/open_ended_response.png)
+<img src="assets/img/open_ended_response.png" height="600px" width="600px" class="center"/>
 
 --- .class #id
 
@@ -396,6 +396,7 @@ Predictions:
 * 156 teams participated, along with 9 vendors of existing automated assessment tools.
 * You can find a paper on the vendor results at http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf .
   * Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.
+* A second competition took place soon after for the scoring of short essays (http://www.kaggle.com/c/asap-sas)
 
 --- .class #id
 
@@ -409,13 +410,86 @@ Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-le
 
 ## Teams vs Vendors
 
-<img src="assets/img/teams_vs_vendors.png" height="500px" width="900px" class="center"/>
+<img src="assets/img/teams_vs_vendors.png" height="500px" width="700px" class="center"/>
 
 Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time) by Christopher Hefele.
 
+--- .class #id
 
+## How did this translate to edX?
 
+* Showed the need for more open tooling and discussion around essay and short answer scoring.
+* Generated lots of exciting ideas.
+* Cost vs. Accuracy
+  * In a Kaggle competition, the cost vs accuracy curve tends way towards accuracy.
+  * In a student learning environment, need to take cost into account, as we want it to be fast and scalable.
 
+--- .class #id
 
+## EASE
+
+* EASE exposes high level functions for creating models and grading students.
+* It has a full test suite (>80% coverage) to easily evaluate changes.
+* Certainly not perfect, but under continuous development, and easy to contribute to.
+  * Available through pip, but recommend cloning the master branch from github and following the install instructions.
+* Feel free to fork and pull request.
+* Full documentation is at ease.readthedocs.org/en/latest/ .
+
+--- .class #id
+
+## Discern
+
+* Discern is an API wrapper for EASE.
+  * Found at github.com/edx/discern
+  * Exposes a REST Web API for text and problems that allows for scoring.
+  * Has over 80% test coverage.
+* Discern allows for you to write code without worrying about implementation details, such as:
+  * Model storage
+  * Scale
+  * Permissions
+  * Algorithm selection
+* Also has useful tools for learning:
+  * Can store information about peer, self, and instructor assessment
+  * Reports the "confidence level" it has in a certain score that it predicts
+  * Allows for sharing of problems
+* Open source, so can be easily contributed to
+* Excellent usage guide contributed by John Kern can be found at http://discern.readthedocs.org/en/latest/ .
+  
+--- .class #id
+
+## Discern Models
+
+* Organization: An organization defines a group of users.  This can be a school, university, set of friends, etc.  Each organization contains multiple courses, and multiple users.
+* User: A user is the basic unit of the application.  Each user will belong to zero to many organizations, and will be a part of zero to many courses.  Each user also will be associated with any essays that they have written, and any essay grades that they have done.
+* Course: The course is essentially a container for problems.  Each course can belong to zero to many organizations.  Each course has zero to many users, and zero to many problems.
+* Problem: A problem contains meta-information for a problem, such as a prompt, maximum scores, etc.  It contains zero to many essays, and is a part of zero to many courses.
+* Essay: The essay is the basic unit of written work.  Each essay is associated with a single problem and a single user.  It can have multiple essay grades.
+* EssayGrade: This is the basic unit that represents a single grader grading an essay.  Graders can be of multiple types (human, machine, etc), and can give varying scores and feedback.  Each essaygrade is associated with a single user (if human graded), and a single essay.
+* Membership: This links between an organization and a user.  It has a field to indicate the role of the user within the organization. Currently the roles are "student", "teacher", and "administrator."  The first user who creates an organization will automatically be made an administrator.
+
+--- .class #id
+
+## Hosted Discern
+
+* Hosted version of discern at discern.edx.org .
+* We can test one of the examples, found in the "examples" directory of the discern repo.
+  * The example uses the discern API to allow for essay to be written, submitted, and graded.
+  * The example is running at grader.vikparuchuri.com
+* Currently in alpha.  Development is still ongoing.
+* Questions should be asked on the mailing list for discern at https://groups.google.com/forum/#!forum/edx-discern .
+
+--- .class #id
+
+## Potential use cases for discern
+
+* An application that predicts stock prices based on news article text.
+* Grading student essays and short answers in a classroom setting.
+* Quickly scoring restaurant reviews.
+* Matching students together in groups based on how similar their writing styles are.
+* Anything that involves text categorization or scoring.
+
+--- .class #id
+
+## Questions?
 
 

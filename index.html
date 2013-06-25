@@ -157,9 +157,7 @@
     <h2>How it looks</h2>
   </hgroup>
   <article>
-    <ul>
-<li><img src="assets/img/open_ended_response.png" alt="open response"></li>
-</ul>
+    <p><img src="assets/img/open_ended_response.png" height="600px" width="600px" class="center"/></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -667,6 +665,7 @@
 <ul>
 <li>Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.</li>
 </ul></li>
+<li>A second competition took place soon after for the scoring of short essays (<a href="http://www.kaggle.com/c/asap-sas">http://www.kaggle.com/c/asap-sas</a>)</li>
 </ul>
 
   </article>
@@ -691,10 +690,149 @@
     <h2>Teams vs Vendors</h2>
   </hgroup>
   <article>
-    <p><img src="assets/img/teams_vs_vendors.png" height="500px" width="900px" class="center"/></p>
+    <p><img src="assets/img/teams_vs_vendors.png" height="500px" width="700px" class="center"/></p>
 
 <p>Taken from <a href="http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time">forum post</a> by Christopher Hefele.</p>
 
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>How did this translate to edX?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Showed the need for more open tooling and discussion around essay and short answer scoring.</li>
+<li>Generated lots of exciting ideas.</li>
+<li>Cost vs. Accuracy
+
+<ul>
+<li>In a Kaggle competition, the cost vs accuracy curve tends way towards accuracy.</li>
+<li>In a student learning environment, need to take cost into account, as we want it to be fast and scalable.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>EASE</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>EASE exposes high level functions for creating models and grading students.</li>
+<li>It has a full test suite (&gt;80% coverage) to easily evaluate changes.</li>
+<li>Certainly not perfect, but under continuous development, and easy to contribute to.
+
+<ul>
+<li>Available through pip, but recommend cloning the master branch from github and following the install instructions.</li>
+</ul></li>
+<li>Feel free to fork and pull request.</li>
+<li>Full documentation is at ease.readthedocs.org/en/latest/ .</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Discern</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Discern is an API wrapper for EASE.
+
+<ul>
+<li>Found at github.com/edx/discern</li>
+<li>Exposes a REST Web API for text and problems that allows for scoring.</li>
+<li>Has over 80% test coverage.</li>
+</ul></li>
+<li>Discern allows for you to write code without worrying about implementation details, such as:
+
+<ul>
+<li>Model storage</li>
+<li>Scale</li>
+<li>Permissions</li>
+<li>Algorithm selection</li>
+</ul></li>
+<li>Also has useful tools for learning:
+
+<ul>
+<li>Can store information about peer, self, and instructor assessment</li>
+<li>Reports the &quot;confidence level&quot; it has in a certain score that it predicts</li>
+<li>Allows for sharing of problems</li>
+</ul></li>
+<li>Open source, so can be easily contributed to</li>
+<li>Excellent usage guide contributed by John Kern can be found at <a href="http://discern.readthedocs.org/en/latest/">http://discern.readthedocs.org/en/latest/</a> .</li>
+</ul>
+
+<p>--- .class #id</p>
+
+<h2>Discern Models</h2>
+
+<ul>
+<li>Organization: An organization defines a group of users.  This can be a school, university, set of friends, etc.  Each organization contains multiple courses, and multiple users.</li>
+<li>User: A user is the basic unit of the application.  Each user will belong to zero to many organizations, and will be a part of zero to many courses.  Each user also will be associated with any essays that they have written, and any essay grades that they have done.</li>
+<li>Course: The course is essentially a container for problems.  Each course can belong to zero to many organizations.  Each course has zero to many users, and zero to many problems.</li>
+<li>Problem: A problem contains meta-information for a problem, such as a prompt, maximum scores, etc.  It contains zero to many essays, and is a part of zero to many courses.</li>
+<li>Essay: The essay is the basic unit of written work.  Each essay is associated with a single problem and a single user.  It can have multiple essay grades.</li>
+<li>EssayGrade: This is the basic unit that represents a single grader grading an essay.  Graders can be of multiple types (human, machine, etc), and can give varying scores and feedback.  Each essaygrade is associated with a single user (if human graded), and a single essay.</li>
+<li>Membership: This links between an organization and a user.  It has a field to indicate the role of the user within the organization. Currently the roles are &quot;student&quot;, &quot;teacher&quot;, and &quot;administrator.&quot;  The first user who creates an organization will automatically be made an administrator.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Hosted Discern</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Hosted version of discern at discern.edx.org .</li>
+<li>We can test one of the examples, found in the &quot;examples&quot; directory of the discern repo.
+
+<ul>
+<li>The example uses the discern API to allow for essay to be written, submitted, and graded.</li>
+<li>The example is running at grader.vikparuchuri.com</li>
+</ul></li>
+<li>Currently in alpha.  Development is still ongoing.</li>
+<li>Questions should be asked on the mailing list for discern at <a href="https://groups.google.com/forum/#!forum/edx-discern">https://groups.google.com/forum/#!forum/edx-discern</a> .</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Potential use cases for discern</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>An application that predicts stock prices based on news article text.</li>
+<li>Grading student essays and short answers in a classroom setting.</li>
+<li>Quickly scoring restaurant reviews.</li>
+<li>Matching students together in groups based on how similar their writing styles are.</li>
+<li>Anything that involves text categorization or scoring.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Questions?</h2>
+  </hgroup>
+  <article>
+    
   </article>
   <!-- Presenter Notes -->
 </slide>
