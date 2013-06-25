@@ -35,6 +35,7 @@ mode        : selfcontained # {standalone, draft}
   * Together, enable authoring and delivery of courses at extremely large scale.
 * Have hosted 30+ courses in subject areas from physics to justice, with a larger number upcoming.
 * Recenly passed the 1 million student mark.
+* Platform and all software today [open source](github.com/edx) and coded in Python.
 
 --- .class #id 
 
@@ -57,7 +58,34 @@ mode        : selfcontained # {standalone, draft}
 
 ## AI Assessment
 
-* AI assessment is the edX term for a more generic process: machine-learning based text classification and scoring.
+* In 2012, [Kaggle](www.kaggle.com) ran a Hewlett Foundation sponsored competition to generate new ideas for automated scoring of student essays.
+* Find it at http://www.kaggle.com/c/asap-aes .
+  * In the competition, participants were given a dataset containing thousands of essays across several essay sets.
+* 156 teams participated, along with 9 vendors of existing automated assessment tools.
+* You can find a paper on the vendor results [here](http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf).
+  * Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.
+* A second competition took place soon after for the scoring of short essays (http://www.kaggle.com/c/asap-sas)
+
+--- .class #id
+
+## Public leaderboard performance
+
+<img src="assets/img/Automated_Essay_Scoring_Scores.png" height="500px" width="900px" class="center"/>
+
+Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time) by Christopher Hefele.
+
+--- .class #id
+
+## Teams vs Vendors
+
+<img src="assets/img/teams_vs_vendors.png" height="500px" width="700px" class="center"/>
+
+Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time) by Christopher Hefele.
+
+--- .class #id
+
+## AI Assessment
+
 * We can start with any "training set" of text and associated scores.
   * ie Reddit posts and scores, essays and scores, books and the names of the authors who wrote them.
 * The goal is to "train" a model that can map future input text to a score/category without being told what it is (prediction)
@@ -181,9 +209,9 @@ Mean similarity:
 ## Meta-features
 
 * We may also wish to extract higher-level features, such as number of spelling errors, number of grammar errors, etc.
-* Meta-features preserve information.
+* Preserve information.
   * If we are lowercasing everything, a "number of spelling errors" feature will capture some of the original information.
-* Can also extract and condense information.
+* Condense and extract information.
   * Several columns with capitalized words will contain a lot of word-specific information (including whether or not the word is capitalized), but making a feature "number of capitalizations" will condense all of that information.
   * If one of the criteria for whether or not an essay is good is whether or not the student has a synonym for "sun", a meta-feature could extract all possible synonyms and condense them into a count.
 
@@ -302,34 +330,6 @@ Predictions:
 * $RMSE=\\sqrt{\\frac{1}n\\sum\\limits&#95;{i=1}&#94;n(\\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$
 * Our RMSE is 0.9354
 * If we tried another method, and the RMSE improved, we would have a reasonable expectation that the method was better.
-
---- .class #id
-
-## Where did AI Assessment come from?
-
-* In 2012, [Kaggle](www.kaggle.com) ran a Hewlett Foundation sponsored competition to generate new ideas for automated scoring of student essays.
-* Find it at http://www.kaggle.com/c/asap-aes .
-  * In the competition, participants were given a dataset containing thousands of essays across several essay sets.
-* 156 teams participated, along with 9 vendors of existing automated assessment tools.
-* You can find a paper on the vendor results [here](http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf).
-  * Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.
-* A second competition took place soon after for the scoring of short essays (http://www.kaggle.com/c/asap-sas)
-
---- .class #id
-
-## Public leaderboard performance
-
-<img src="assets/img/Automated_Essay_Scoring_Scores.png" height="500px" width="900px" class="center"/>
-
-Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time) by Christopher Hefele.
-
---- .class #id
-
-## Teams vs Vendors
-
-<img src="assets/img/teams_vs_vendors.png" height="500px" width="700px" class="center"/>
-
-Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time) by Christopher Hefele.
 
 --- .class #id
 

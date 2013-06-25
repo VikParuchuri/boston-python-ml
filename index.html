@@ -80,6 +80,7 @@
 </ul></li>
 <li>Have hosted 30+ courses in subject areas from physics to justice, with a larger number upcoming.</li>
 <li>Recenly passed the 1 million student mark.</li>
+<li>Platform and all software today <a href="github.com/edx">open source</a> and coded in Python.</li>
 </ul>
 
   </article>
@@ -126,7 +127,57 @@
   </hgroup>
   <article>
     <ul>
-<li>AI assessment is the edX term for a more generic process: machine-learning based text classification and scoring.</li>
+<li>In 2012, <a href="www.kaggle.com">Kaggle</a> ran a Hewlett Foundation sponsored competition to generate new ideas for automated scoring of student essays.</li>
+<li>Find it at <a href="http://www.kaggle.com/c/asap-aes">http://www.kaggle.com/c/asap-aes</a> .
+
+<ul>
+<li>In the competition, participants were given a dataset containing thousands of essays across several essay sets.</li>
+</ul></li>
+<li>156 teams participated, along with 9 vendors of existing automated assessment tools.</li>
+<li>You can find a paper on the vendor results <a href="http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf">here</a>.
+
+<ul>
+<li>Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.</li>
+</ul></li>
+<li>A second competition took place soon after for the scoring of short essays (<a href="http://www.kaggle.com/c/asap-sas">http://www.kaggle.com/c/asap-sas</a>)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Public leaderboard performance</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/Automated_Essay_Scoring_Scores.png" height="500px" width="900px" class="center"/></p>
+
+<p>Taken from <a href="http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time">forum post</a> by Christopher Hefele.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Teams vs Vendors</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/teams_vs_vendors.png" height="500px" width="700px" class="center"/></p>
+
+<p>Taken from <a href="http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time">forum post</a> by Christopher Hefele.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>AI Assessment</h2>
+  </hgroup>
+  <article>
+    <ul>
 <li>We can start with any &quot;training set&quot; of text and associated scores.
 
 <ul>
@@ -304,12 +355,12 @@
   <article>
     <ul>
 <li>We may also wish to extract higher-level features, such as number of spelling errors, number of grammar errors, etc.</li>
-<li>Meta-features preserve information.
+<li>Preserve information.
 
 <ul>
 <li>If we are lowercasing everything, a &quot;number of spelling errors&quot; feature will capture some of the original information.</li>
 </ul></li>
-<li>Can also extract and condense information.
+<li>Condense and extract information.
 
 <ul>
 <li>Several columns with capitalized words will contain a lot of word-specific information (including whether or not the word is capitalized), but making a feature &quot;number of capitalizations&quot; will condense all of that information.</li>
@@ -495,57 +546,6 @@
 <li>Our RMSE is 0.9354</li>
 <li>If we tried another method, and the RMSE improved, we would have a reasonable expectation that the method was better.</li>
 </ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>Where did AI Assessment come from?</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>In 2012, <a href="www.kaggle.com">Kaggle</a> ran a Hewlett Foundation sponsored competition to generate new ideas for automated scoring of student essays.</li>
-<li>Find it at <a href="http://www.kaggle.com/c/asap-aes">http://www.kaggle.com/c/asap-aes</a> .
-
-<ul>
-<li>In the competition, participants were given a dataset containing thousands of essays across several essay sets.</li>
-</ul></li>
-<li>156 teams participated, along with 9 vendors of existing automated assessment tools.</li>
-<li>You can find a paper on the vendor results <a href="http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf">here</a>.
-
-<ul>
-<li>Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.</li>
-</ul></li>
-<li>A second competition took place soon after for the scoring of short essays (<a href="http://www.kaggle.com/c/asap-sas">http://www.kaggle.com/c/asap-sas</a>)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>Public leaderboard performance</h2>
-  </hgroup>
-  <article>
-    <p><img src="assets/img/Automated_Essay_Scoring_Scores.png" height="500px" width="900px" class="center"/></p>
-
-<p>Taken from <a href="http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time">forum post</a> by Christopher Hefele.</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>Teams vs Vendors</h2>
-  </hgroup>
-  <article>
-    <p><img src="assets/img/teams_vs_vendors.png" height="500px" width="700px" class="center"/></p>
-
-<p>Taken from <a href="http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time">forum post</a> by Christopher Hefele.</p>
 
   </article>
   <!-- Presenter Notes -->
