@@ -394,6 +394,7 @@
 <li>Do a chi-squared test or a fisher test of significance.</li>
 </ul></li>
 <li>The tests essentially say &quot;Is feature x significantly different between low and high scoring texts&quot;?</li>
+<li>P-value -- the lower the p-value, the more significant the difference is.  Generally, a .05 or a .01 is a good threshold for significance.</li>
 </ul>
 
 <p><img src="figure/unnamed-chunk-10.png" alt="plot of chunk unnamed-chunk-10"> </p>
@@ -421,9 +422,7 @@
 <li>We also have a lot of choice regarding the algorithm to use.
 
 <ul>
-<li>Random forest</li>
-<li>Gradient boosted trees</li>
-<li>Linear regression</li>
+<li>In this case, use linear regression</li>
 </ul></li>
 </ul>
 
@@ -577,9 +576,124 @@
 <li>All of them turn error into a single number</li>
 </ul></li>
 <li>Important to set random seeds when doing most machine learning methods in order to make error meaningful from run to run.</li>
-<li>Root mean squared error
-$RMSE=\sqrt{\frac{1}n\sum\limits&#95;{i=1}&#94;n(\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$</li>
+<li>$RMSE=\sqrt{\frac{1}n\sum\limits&#95;{i=1}&#94;n(\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$</li>
+<li>Our RMSE is 0.9354</li>
+<li>If we tried another method, and the RMSE improved, we would have a reasonable expectation that the method was better.</li>
 </ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>More advanced features</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Find similarity between documents or terms with latent semantic analysis.</li>
+<li>Model topics with latent dirichlet allocation</li>
+<li>Part of speech tagging</li>
+<li>Stemming/lemmatization</li>
+<li>Synonym detection with wordnet</li>
+<li>Sentiment analysis</li>
+<li>Deep learning</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>More advanced algorithms</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Support vector machines</li>
+<li>Decision trees</li>
+<li>Random forest</li>
+<li>Gradient boosted trees</li>
+<li>Different algorithms work better in different situations.  Try several.
+
+<ul>
+<li>A framework to measure error is critical before experimenting.</li>
+</ul></li>
+<li>You can also &quot;blend&quot; the outputs of various algorithms in a process called ensembling.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Now, back to edX</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Now that we have the basics of how automatic scoring of text works, let&#39;s jump back to the edX algorithms.</li>
+<li>edX EASE
+
+<ul>
+<li>Machine learning tool that performs tokenization, bag of words, and training/prediction</li>
+<li>Has lots of features outside the scope of what was discussed earlier.</li>
+<li>See the code at github.com/edx/ease</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Where did EASE come from?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>In 2012, <a href="www.kaggle.com">Kaggle</a> ran a Hewlett Foundation sponsored competition to generate new ideas for automated scoring of student essays.</li>
+<li>Find it at <a href="http://www.kaggle.com/c/asap-aes">http://www.kaggle.com/c/asap-aes</a> .
+
+<ul>
+<li>In the competition, participants were given a dataset containing thousands of essays across several essay sets.</li>
+<li>Participants then were asked to develop models using the data.</li>
+<li>Final evaluation was done on a set of data that participants had never seen.</li>
+<li>Evaluation metrics was Quadratic Weighted Kappa</li>
+</ul></li>
+<li>156 teams participated, along with 9 vendors of existing automated assessment tools.</li>
+<li>You can find a paper on the vendor results at <a href="http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf">http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf</a> .
+
+<ul>
+<li>Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Public leaderboard performance</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/Automated_Essay_Scoring_Scores.png" height="500px" width="900px" class="center"/></p>
+
+<p>Taken from <a href="http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time">forum post</a> by Christopher Hefele.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Teams vs Vendors</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/teams_vs_vendors.png" height="500px" width="900px" class="center"/></p>
+
+<p>Taken from <a href="http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time">forum post</a> by Christopher Hefele.</p>
 
   </article>
   <!-- Presenter Notes -->

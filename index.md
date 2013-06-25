@@ -227,6 +227,7 @@ Mean similarity:
   * Create a machine learning model and measure error
   * Do a chi-squared test or a fisher test of significance.
 * The tests essentially say "Is feature x significantly different between low and high scoring texts"?
+* P-value -- the lower the p-value, the more significant the difference is.  Generally, a .05 or a .01 is a good threshold for significance.
 
 ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
 
@@ -243,9 +244,7 @@ Mean similarity:
   * Classification works best if you have less than 5 "score points" (we have 3).
   * Should try both, and measure error.
 * We also have a lot of choice regarding the algorithm to use.
-  * Random forest
-  * Gradient boosted trees
-  * Linear regression
+  * In this case, use linear regression
 
 --- .class #id
 
@@ -346,10 +345,73 @@ Predictions:
   * Root mean squared error
   * All of them turn error into a single number
 * Important to set random seeds when doing most machine learning methods in order to make error meaningful from run to run.
-* Root mean squared error
-$RMSE=\\sqrt{\\frac{1}n\\sum\\limits&#95;{i=1}&#94;n(\\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$
+* $RMSE=\\sqrt{\\frac{1}n\\sum\\limits&#95;{i=1}&#94;n(\\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$
+* Our RMSE is 0.9354
+* If we tried another method, and the RMSE improved, we would have a reasonable expectation that the method was better.
 
+--- .class #id
 
+## More advanced features
+
+* Find similarity between documents or terms with latent semantic analysis.
+* Model topics with latent dirichlet allocation
+* Part of speech tagging
+* Stemming/lemmatization
+* Synonym detection with wordnet
+* Sentiment analysis
+* Deep learning
+
+--- .class #id
+
+## More advanced algorithms
+
+* Support vector machines
+* Decision trees
+* Random forest
+* Gradient boosted trees
+* Different algorithms work better in different situations.  Try several.
+  * A framework to measure error is critical before experimenting.
+* You can also "blend" the outputs of various algorithms in a process called ensembling.
+
+--- .class #id
+
+## Now, back to edX
+
+* Now that we have the basics of how automatic scoring of text works, let's jump back to the edX algorithms.
+* edX EASE
+  * Machine learning tool that performs tokenization, bag of words, and training/prediction
+  * Has lots of features outside the scope of what was discussed earlier.
+  * See the code at github.com/edx/ease
+
+--- .class #id
+
+## Where did EASE come from?
+
+* In 2012, [Kaggle](www.kaggle.com) ran a Hewlett Foundation sponsored competition to generate new ideas for automated scoring of student essays.
+* Find it at http://www.kaggle.com/c/asap-aes .
+  * In the competition, participants were given a dataset containing thousands of essays across several essay sets.
+  * Participants then were asked to develop models using the data.
+  * Final evaluation was done on a set of data that participants had never seen.
+  * Evaluation metrics was Quadratic Weighted Kappa
+* 156 teams participated, along with 9 vendors of existing automated assessment tools.
+* You can find a paper on the vendor results at http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf .
+  * Participating vendors were American Institutes for Research, McGraw-Hill, Carnegie Mellon (Lightside), ETS, MetaMetrics, Measurement, Inc. , Pearson, Pacific Metrics, and Vantage Learning.
+
+--- .class #id
+
+## Public leaderboard performance
+
+<img src="assets/img/Automated_Essay_Scoring_Scores.png" height="500px" width="900px" class="center"/>
+
+Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time) by Christopher Hefele.
+
+--- .class #id
+
+## Teams vs Vendors
+
+<img src="assets/img/teams_vs_vendors.png" height="500px" width="900px" class="center"/>
+
+Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time) by Christopher Hefele.
 
 
 
