@@ -250,17 +250,11 @@ Let's use this as our "test" text that we will predict a score for:
 ![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13.png) 
 
 
---- .class #id
-
-## Predicting scores
-
 * We can use our new features to predict a score for our test text.
 
 
 
-* Our prediction is 2
-* We derive this by multiplying each column in the matrix by its associated coefficient, then adding those together and adding the intercept.
-* In this case, the intercept was 1 and the presence of the word *interesting* added another 1.
+Our prediction is 2. In this case, the intercept was 1 and the presence of the word *interesting* added another 1.
 
 --- .class #id
 
@@ -311,17 +305,7 @@ Predictions:
 
 --- .class #id
 
-## Now, back to edX
-
-* Now that we have the basics of how automatic scoring of text works, let's jump back to the edX algorithms.
-* edX EASE
-  * Machine learning tool that performs tokenization, bag of words, and training/prediction
-  * Has lots of features outside the scope of what was discussed earlier.
-  * See the code at github.com/edx/ease
-
---- .class #id
-
-## Where did EASE come from?
+## Where did AI Assessment come from?
 
 * In 2012, [Kaggle](www.kaggle.com) ran a Hewlett Foundation sponsored competition to generate new ideas for automated scoring of student essays.
 * Find it at http://www.kaggle.com/c/asap-aes .
@@ -346,16 +330,6 @@ Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-le
 <img src="assets/img/teams_vs_vendors.png" height="500px" width="700px" class="center"/>
 
 Taken from [forum post](http://www.kaggle.com/c/asap-aes/forums/t/1775/public-leaderboard-performance-over-time) by Christopher Hefele.
-
---- .class #id
-
-## How did this translate to edX?
-
-* Showed the need for more open tooling and discussion around essay and short answer scoring.
-* Generated lots of exciting ideas.
-* Cost vs. Accuracy
-  * In a Kaggle competition, the cost vs accuracy curve tends way towards accuracy.
-  * In a student learning environment, need to take cost into account, as we want it to be fast and scalable.
 
 --- .class #id
 
