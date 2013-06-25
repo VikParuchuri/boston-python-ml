@@ -113,6 +113,7 @@
 <li>Richer assessments allow for varied instructional and learning styles.</li>
 </ul></li>
 <li>Short answer responses also useful for STEM courses offered by edX.</li>
+<li>One way to do this is through AI Assessment</li>
 </ul>
 
   </article>
@@ -121,51 +122,7 @@
 
       <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>Potential strategies</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>Peer assessment (students grade each other)</li>
-<li>Self assessment (students grade themselves)</li>
-<li>Instructor assessment (instructor grades everyone)</li>
-<li>AI Assessment (computer algorithm is trained and then grades students)</li>
-<li>Scoring students based on participation and quality of discussions.</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>Overall Implementation</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>Through edx-ora (<a href="https://github.com/edx/edx-ora">https://github.com/edx/edx-ora</a>), implement a combination of peer assessment, self assessment, instructor assessment, and AI assessment.</li>
-<li>edx-ora is currently being used to grade student free-text responses on the edX platform.</li>
-<li>In alpha, and development is ongoing.</li>
-<li>Although the focus of this talk is AI assessment, highly encourage looking at edX-ora if you are interested.</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>How it looks</h2>
-  </hgroup>
-  <article>
-    <p><img src="assets/img/open_ended_response.png" height="600px" width="600px" class="center"/></p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>What is AI assessment, anyways?</h2>
+    <h2>AI Assessment</h2>
   </hgroup>
   <article>
     <ul>
@@ -231,29 +188,6 @@
 
       <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>What is the algorithm doing?</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>The algorithm is going to be taking in a lot of numerical values, along with the scores that are associated with these values.</li>
-<li>We will extract the numerical values from the text
-
-<ul>
-<li>For example, <em>number of times the word plane appears in a piece of text</em> is a feature.</li>
-</ul></li>
-<li>The values (features) are derived from the input text, and aggreggated on a per-text basis into feature vectors.</li>
-<li>Multiple feature vectors are generally placed together into a feature matrix, where each row represents a piece of text.</li>
-<li>The algorithm will discover which of these features is relevant, and which are not.</li>
-<li>The relevance is determined by whether or not the features differentiate a high scoring essay from a low scoring one.</li>
-<li>So, we want to feed it features that are specific (they measure as few things as possible) and relevant.</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
     <h2>Tokenization</h2>
   </hgroup>
   <article>
@@ -293,23 +227,6 @@
 
       <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>Bag of words overview</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>Ordering of words within a document is not taken into account in the basic bag of words model.</li>
-<li>Once we have our document-term matrix, we can use machine learning techniques.</li>
-<li>I have outlined a very simple framework, but it can easily be built on and extended.</li>
-<li>The bag of words is a foundational block for a lot of more advanced techniques.</li>
-<li>What we are doing is extracting potentially relevant information in a manner the computer can utilize (ie numbers)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
     <h2>Minimizing distances between vectors</h2>
   </hgroup>
   <article>
@@ -323,7 +240,6 @@
 <li>However, the simple tokenization we outlined above will not catch this.</li>
 </ul></li>
 <li>Spell correction using aspell or <a href="http://norvig.com/spell-correct.html">Peter Norvig&#39;s method</a>.</li>
-<li>Lowercase input strings.</li>
 <li>We minimize distance because we want the same response to get the same score from our algorithm.</li>
 </ul>
 
@@ -337,7 +253,6 @@
   </hgroup>
   <article>
     <ul>
-<li>It is important to preserve as much of the input information as we can.</li>
 <li>When we start to spell correct or lowercase strings, we lose information.
 
 <ul>
@@ -364,17 +279,8 @@
   </hgroup>
   <article>
     <ul>
-<li>As we saw in the slide before, we want to generate as much new information as possible while preserving existing information.</li>
-<li>This will have us generate multiple <em>feature sets</em>. All of the feature sets will eventually be collapsed into one matrix and fed into the algorithm.
-
-<ul>
-<li>Recommend having one feature set with original input text.</li>
-</ul></li>
-<li>Can measure orthogonality by taking vector distance or vector similarity between each document vector.
-
-<ul>
-<li>Need to reformat document vectors to contain all terms.</li>
-</ul></li>
+<li>Generate multiple <em>feature sets</em>. All of the feature sets will eventually be collapsed into one matrix and fed into the algorithm.</li>
+<li>Can measure orthogonality by taking vector distance or vector similarity between each document vector.</li>
 </ul>
 
 <p>Cosine similarities:</p>
@@ -398,7 +304,6 @@
   <article>
     <ul>
 <li>We may also wish to extract higher-level features, such as number of spelling errors, number of grammar errors, etc.</li>
-<li>Can add meta-features to the bag of words matrix.</li>
 <li>Meta-features preserve information.
 
 <ul>
@@ -410,27 +315,6 @@
 <li>Several columns with capitalized words will contain a lot of word-specific information (including whether or not the word is capitalized), but making a feature &quot;number of capitalizations&quot; will condense all of that information.</li>
 <li>If one of the criteria for whether or not an essay is good is whether or not the student has a synonym for &quot;sun&quot;, a meta-feature could extract all possible synonyms and condense them into a count.</li>
 </ul></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>Relevance of Information</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>Just like with a human, too much information will swamp an algorithm will irrelevant inputs.</li>
-<li>Similarly, information that is too broad will not help much.
-
-<ul>
-<li>For example, say a latent trait that gives a student a 2/2 on an essay vs a 0/2 is the presence of a synonym for the word &quot;sun&quot; in the response</li>
-<li>Broad information would be several columns in our matrix that contain synonyms for the word &quot;sun&quot;</li>
-<li>Specific information would be a feature that counts all of the synonyms up</li>
-</ul></li>
-<li>Our goal is to give the computer as much relevant information as possible.  If an item is relevant, more specific is better, but the less specific it is, the more potentially relevant it will be.</li>
 </ul>
 
   </article>
@@ -466,7 +350,6 @@
   <article>
     <ul>
 <li>Now that we have generated our bag of words features and our meta-features, and figured out which ones are good, we can move onto machine learning.</li>
-<li>The goal is to &quot;train&quot; a model that can predict future scores and categories.</li>
 <li>Two broad categories of algorithms: classification and regression (not linear regression!)
 
 <ul>
@@ -497,7 +380,6 @@
 
 <ul>
 <li>Each column in the matrix (feature) has a coefficient.</li>
-<li>When we train the model, we calculate the coefficients.</li>
 <li>Once we have the coefficients, we can predict how future text would score.</li>
 </ul></li>
 </ul>
@@ -534,14 +416,6 @@
 </code></pre>
 
 <p><img src="figure/unnamed-chunk-13.png" alt="plot of chunk unnamed-chunk-13"> </p>
-
-<ul>
-<li>Note that we have used the exact same features as in the training matrix. 
-
-<ul>
-<li>Without this, our model will not work.</li>
-</ul></li>
-</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -609,10 +483,6 @@
 <p>Predictions:
 <img src="figure/unnamed-chunk-18.png" alt="plot of chunk unnamed-chunk-18"> </p>
 
-<ul>
-<li>Predictions are not very accurate due to very limited data.</li>
-</ul>
-
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -631,51 +501,9 @@
 <li>Root mean squared error</li>
 <li>All of them turn error into a single number</li>
 </ul></li>
-<li>Important to set random seeds when doing most machine learning methods in order to make error meaningful from run to run.</li>
 <li>$RMSE=\sqrt{\frac{1}n\sum\limits&#95;{i=1}&#94;n(\hat{Y&#95;{i}}-Y&#95;{i})&#94;2}$</li>
 <li>Our RMSE is 0.9354</li>
 <li>If we tried another method, and the RMSE improved, we would have a reasonable expectation that the method was better.</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>More advanced features</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>Find similarity between documents or terms with latent semantic analysis.</li>
-<li>Model topics with latent dirichlet allocation</li>
-<li>Part of speech tagging</li>
-<li>Stemming/lemmatization</li>
-<li>Synonym detection with wordnet</li>
-<li>Sentiment analysis</li>
-<li>Deep learning</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>More advanced algorithms</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>Support vector machines</li>
-<li>Decision trees</li>
-<li>Random forest</li>
-<li>Gradient boosted trees</li>
-<li>Different algorithms work better in different situations.  Try several.
-
-<ul>
-<li>A framework to measure error is critical before experimenting.</li>
-</ul></li>
-<li>You can also &quot;blend&quot; the outputs of various algorithms in a process called ensembling.</li>
 </ul>
 
   </article>
@@ -713,8 +541,6 @@
 
 <ul>
 <li>In the competition, participants were given a dataset containing thousands of essays across several essay sets.</li>
-<li>Participants then were asked to develop models using the data.</li>
-<li>Final evaluation was done on a set of data that participants had never seen using quadratic weighted kappa.</li>
 </ul></li>
 <li>156 teams participated, along with 9 vendors of existing automated assessment tools.</li>
 <li>You can find a paper on the vendor results <a href="http://www.scoreright.org/NCME_2012_Paper3_29_12.pdf">here</a>.
@@ -783,7 +609,7 @@
     <ul>
 <li>EASE exposes high level functions for creating models and grading students.</li>
 <li>It has a full test suite (&gt;80% coverage) to easily evaluate changes.</li>
-<li>Certainly not perfect, but under continuous development, and easy to contribute to.
+<li>Under continuous development, and easy to contribute to.
 
 <ul>
 <li>Available through pip, but recommend cloning the master branch from github and following the install instructions.</li>
@@ -809,14 +635,7 @@
 <li>Exposes a REST Web API for text and problems that allows for scoring.</li>
 <li>Has over 80% test coverage.</li>
 </ul></li>
-<li>Discern allows for you to write code without worrying about implementation details, such as:
-
-<ul>
-<li>Model storage</li>
-<li>Scale</li>
-<li>Permissions</li>
-<li>Algorithm selection</li>
-</ul></li>
+<li>Discern allows for you to write code without worrying about implementation details.</li>
 <li>Also has useful tools for learning:
 
 <ul>
@@ -824,22 +643,7 @@
 <li>Reports the &quot;confidence level&quot; it has in a certain score that it predicts</li>
 <li>Allows for sharing of problems</li>
 </ul></li>
-<li>Open source, so can be easily contributed to</li>
-<li>Excellent usage guide contributed by John Kern can be found at <a href="http://discern.readthedocs.org/en/latest/">http://discern.readthedocs.org/en/latest/</a> .</li>
-</ul>
-
-<p>--- .class #id</p>
-
-<h2>Discern Models</h2>
-
-<ul>
-<li>Organization: An organization defines a group of users.  This can be a school, university, set of friends, etc.  Each organization contains multiple courses, and multiple users.</li>
-<li>User: A user is the basic unit of the application.  Each user will belong to zero to many organizations, and will be a part of zero to many courses.  Each user also will be associated with any essays that they have written, and any essay grades that they have done.</li>
-<li>Course: The course is essentially a container for problems.  Each course can belong to zero to many organizations.  Each course has zero to many users, and zero to many problems.</li>
-<li>Problem: A problem contains meta-information for a problem, such as a prompt, maximum scores, etc.  It contains zero to many essays, and is a part of zero to many courses.</li>
-<li>Essay: The essay is the basic unit of written work.  Each essay is associated with a single problem and a single user.  It can have multiple essay grades.</li>
-<li>EssayGrade: This is the basic unit that represents a single grader grading an essay.  Graders can be of multiple types (human, machine, etc), and can give varying scores and feedback.  Each essaygrade is associated with a single user (if human graded), and a single essay.</li>
-<li>Membership: This links between an organization and a user.  It has a field to indicate the role of the user within the organization. Currently the roles are &quot;student&quot;, &quot;teacher&quot;, and &quot;administrator.&quot;  The first user who creates an organization will automatically be made an administrator.</li>
+<li>* Full documentation is at discern.readthedocs.org/en/latest/ .</li>
 </ul>
 
   </article>
@@ -857,27 +661,9 @@
 
 <ul>
 <li>The example uses the discern API to allow for essay to be written, submitted, and graded.</li>
-<li>The example is running at grader.vikparuchuri.com</li>
 </ul></li>
 <li>Currently in alpha.  Development is still ongoing.</li>
-<li>Questions should be asked on the mailing list for discern at <a href="https://groups.google.com/forum/#!forum/edx-discern">https://groups.google.com/forum/#!forum/edx-discern</a> .</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>Potential use cases for discern</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>An application that predicts stock prices based on news article text.</li>
-<li>Grading student essays and short answers in a classroom setting.</li>
-<li>Quickly scoring restaurant reviews.</li>
-<li>Matching students together in groups based on how similar their writing styles are.</li>
-<li>Anything that involves text categorization or scoring.</li>
+<li>Questions should be asked on the <a href="https://groups.google.com/forum/#!forum/edx-discern">mailing list for discern</a>.</li>
 </ul>
 
   </article>
